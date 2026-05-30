@@ -1,0 +1,13 @@
+{
+  "lockfileVersion": 1,
+  "skills": {
+    "react-expert": {
+      "version": "1.0.0",
+      "resolved": "https://registry.skillregistry.dev/api/v1/skills/react-expert/1.0.0",
+      "checksum": "example-sha256-replace-on-install",
+      "security_score": 98,
+      "installed_agents": ["cursor", "claude-code"],
+      "installed_at": "2026-05-30T10:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "@skillregistry/cli",
+  "version": "0.1.0",
+  "description": "CLI for discovering and installing AI agent skills",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "skillregistry": "./dist/index.js",
+    "skr": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./installer": {
+      "types": "./dist/utils/installer.d.ts",
+      "import": "./dist/utils/installer.js",
+      "require": "./dist/utils/installer.cjs"
+    },
+    "./agent-detector": {
+      "types": "./dist/utils/agent-detector.d.ts",
+      "import": "./dist/utils/agent-detector.js",
+      "require": "./dist/utils/agent-detector.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@skillregistry/core": "workspace:*",
+    "@skillregistry/scanner": "workspace:*",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^12.2.0",
+    "ora": "^8.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.5"
+  }
+}

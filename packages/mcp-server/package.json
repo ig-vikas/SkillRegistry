@@ -1,0 +1,42 @@
+{
+  "name": "@skillregistry/mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for SkillRegistry",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "skillregistry-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@skillregistry/cli": "workspace:*",
+    "@skillregistry/core": "workspace:*",
+    "@skillregistry/scanner": "workspace:*",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.5"
+  }
+}

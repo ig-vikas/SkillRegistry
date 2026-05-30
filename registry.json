@@ -1,0 +1,352 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-05-30T14:41:34.133Z",
+  "skills": {
+    "a11y-audit": {
+      "name": "a11y-audit",
+      "version": "1.0.0",
+      "description": "WCAG 2.1 accessibility audits and remediation guidance.",
+      "author": "skillregistry",
+      "categories": [
+        "accessibility",
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "da0284706b1173e0de47c29d9e9dc98a2cb5505efa626ee41166b4a66b58c223"
+    },
+    "api-design": {
+      "name": "api-design",
+      "version": "1.0.0",
+      "description": "REST API design, versioning, and OpenAPI documentation.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "478efecf201d18e3b8632984b93facdf4237fa032e353cb2e974d947755fedb7"
+    },
+    "ci-cd-patterns": {
+      "name": "ci-cd-patterns",
+      "version": "1.0.0",
+      "description": "CI/CD pipeline patterns for reliable deployments.",
+      "author": "skillregistry",
+      "categories": [
+        "devops"
+      ],
+      "agents": [
+        "cursor"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "83b37a60b47816d123ac64f7c37036ee1289b7de30ac33e6992afb672d3a4f9f"
+    },
+    "docker-expert": {
+      "name": "docker-expert",
+      "version": "1.0.0",
+      "description": "Dockerfile best practices and multi-stage builds.",
+      "author": "skillregistry",
+      "categories": [
+        "devops",
+        "cloud"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "699978c7ae6026109986edd9c90675f073f4371c3ea42b12e7ec9f831ef1b4d2"
+    },
+    "github-actions": {
+      "name": "github-actions",
+      "version": "1.0.0",
+      "description": "GitHub Actions CI/CD workflows and reusable actions.",
+      "author": "skillregistry",
+      "categories": [
+        "devops"
+      ],
+      "agents": [
+        "cursor",
+        "copilot"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "4f1f25a766febffe74e64c77d047b5a980a7bfb7b1e41b033584fffad18776f5"
+    },
+    "graphql-expert": {
+      "name": "graphql-expert",
+      "version": "1.0.0",
+      "description": "GraphQL schema design, resolvers, and N+1 prevention.",
+      "author": "skillregistry",
+      "categories": [
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "12dc99affaf29f8fb6633c8ee2c87e4ee81ce00174bea4ec481006f26a913853"
+    },
+    "input-validation": {
+      "name": "input-validation",
+      "version": "1.0.0",
+      "description": "Input validation with Zod and sanitization strategies.",
+      "author": "skillregistry",
+      "categories": [
+        "security",
+        "backend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "a3e2225173f29d306ab0132b39b59efb20edae773713ceef7cd7e61868d07738"
+    },
+    "jwt-hardening": {
+      "name": "jwt-hardening",
+      "version": "1.0.0",
+      "description": "JWT authentication hardening and token lifecycle management.",
+      "author": "skillregistry",
+      "categories": [
+        "security",
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "89e328ee01df4b8f91ce0004de7b410532b15a280f206bf42ed7d1ef21089835"
+    },
+    "mcp-builder": {
+      "name": "mcp-builder",
+      "version": "1.0.0",
+      "description": "Build MCP servers with the Model Context Protocol SDK.",
+      "author": "skillregistry",
+      "categories": [
+        "ai-ml"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "1b0f321fa548d3f9c319f24d23ce1cff20f62af52eed2cb6cf1607529f67bb5f"
+    },
+    "nextjs-expert": {
+      "name": "nextjs-expert",
+      "version": "1.0.0",
+      "description": "Next.js App Router, RSC, and deployment best practices.",
+      "author": "skillregistry",
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "7077b48ccff972139233bd17ac928940a812a84c9172e278c943a3e64bc64e6c"
+    },
+    "owasp-security": {
+      "name": "owasp-security",
+      "version": "1.0.0",
+      "description": "OWASP Top 10 vulnerabilities and secure coding practices.",
+      "author": "skillregistry",
+      "categories": [
+        "security"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "85da56c771bf36e9cbef76a33d043ca51912d0eb23fa8cd3e6b6b09e55990839"
+    },
+    "postgres-expert": {
+      "name": "postgres-expert",
+      "version": "1.0.0",
+      "description": "PostgreSQL query optimization, indexing, and schema design.",
+      "author": "skillregistry",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "85a9bc1252b55108d87bce2b8cbb84fb14ce186f128c7cd67bdd44eb326d1f2f"
+    },
+    "prompt-engineer": {
+      "name": "prompt-engineer",
+      "version": "1.0.0",
+      "description": "Prompt engineering techniques for reliable LLM outputs.",
+      "author": "skillregistry",
+      "categories": [
+        "ai-ml"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "gemini-cli"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "d1b794907ac9efa6c8bf1784eb0142a9440565a917cd68f74928165174696151"
+    },
+    "rag-patterns": {
+      "name": "rag-patterns",
+      "version": "1.0.0",
+      "description": "RAG architecture, chunking, and retrieval optimization.",
+      "author": "skillregistry",
+      "categories": [
+        "ai-ml",
+        "database"
+      ],
+      "agents": [
+        "cursor"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "6a4154d9272fc6325881ff195813502bfe94ad24de753bbcf3dc1f541b9855a7"
+    },
+    "react-expert": {
+      "name": "react-expert",
+      "version": "1.0.0",
+      "description": "Expert React patterns, hooks, and performance optimization.",
+      "author": "skillregistry",
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "d9d455c0496e3d1304cd9d740f992f94407ad4e198c773c0a3ea280c3db5c521"
+    },
+    "redis-patterns": {
+      "name": "redis-patterns",
+      "version": "1.0.0",
+      "description": "Redis caching, pub/sub, and data structure patterns.",
+      "author": "skillregistry",
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "12785e0b1b86b3a371bbd16569860a0f884b65b65e0323a3e234ba9827b2f431"
+    },
+    "refactor-expert": {
+      "name": "refactor-expert",
+      "version": "1.0.0",
+      "description": "Safe refactoring patterns and code smell remediation.",
+      "author": "skillregistry",
+      "categories": [
+        "code-quality"
+      ],
+      "agents": [
+        "cursor",
+        "windsurf"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "924cde5ba04e1a5bf7ed2522a6db8211b9f4f0256ec0bf3461884d9d9236431d"
+    },
+    "tailwind-pro": {
+      "name": "tailwind-pro",
+      "version": "1.0.0",
+      "description": "Tailwind CSS utility patterns and design system setup.",
+      "author": "skillregistry",
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "windsurf"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "60b29629348eb88b65ed9be5ba1f57ee66496d80518361a5c8204a220148f743"
+    },
+    "test-driven": {
+      "name": "test-driven",
+      "version": "1.0.0",
+      "description": "Test-driven development with Vitest and Testing Library.",
+      "author": "skillregistry",
+      "categories": [
+        "testing",
+        "code-quality"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "877b0d498e10174a4418dfd3e9b77f66311c316551b60e23d0cabe639195ea5b"
+    },
+    "vue-master": {
+      "name": "vue-master",
+      "version": "1.0.0",
+      "description": "Vue 3 Composition API, Pinia, and component design.",
+      "author": "skillregistry",
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "483c46d98531ea9627b335a9c2948c17931b65168ef7ade825308851103948e6"
+    }
+  }
+}
