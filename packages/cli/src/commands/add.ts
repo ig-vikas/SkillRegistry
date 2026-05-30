@@ -35,9 +35,7 @@ export async function runAdd(skillName: string, options?: AddOptions): Promise<v
       ...(options?.skillsDir ? { skillsDir: options.skillsDir } : {}),
     });
 
-    const agents = options?.agent
-      ? [options.agent]
-      : await detectInstalledAgents(cwd);
+    const agents = options?.agent ? [options.agent] : await detectInstalledAgents(cwd);
 
     if (agents.length === 0) {
       spin.fail('No agents detected. Use --agent <type>.');

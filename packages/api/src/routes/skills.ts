@@ -3,7 +3,14 @@ import { eq } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { skillManifestSchema } from '@skillregistry/core';
 import type { Database } from '../db/client.js';
-import { downloads, securityReports, skillAgents, skillCategories, skills, users } from '../db/schema.js';
+import {
+  downloads,
+  securityReports,
+  skillAgents,
+  skillCategories,
+  skills,
+  users,
+} from '../db/schema.js';
 import { fail, ok } from '../lib/envelope.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { buildRegistryIndex, getSkillByName, hashIp, publishSkill } from '../services/skills.js';
@@ -28,10 +35,12 @@ export function createSkillsRoutes(db: Database, jwtSecret: string) {
     const start = (page - 1) * limit;
     const slice = entries.slice(start, start + limit);
     return c.json(
-      ok(
-        slice,
-        { page, limit, total: entries.length, totalPages: Math.ceil(entries.length / limit) },
-      ),
+      ok(slice, {
+        page,
+        limit,
+        total: entries.length,
+        totalPages: Math.ceil(entries.length / limit),
+      }),
     );
   });
 

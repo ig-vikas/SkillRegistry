@@ -1,7 +1,5 @@
 {
   "permissions": {
-    "allow": [
-      "PowerShell(\\(Get-ChildItem -Directory\\).Count)"
-    ]
+    "allow": ["PowerShell(\\(Get-ChildItem -Directory\\).Count)"]
   }
 }

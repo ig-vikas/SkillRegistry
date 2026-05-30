@@ -28,11 +28,8 @@ export async function runSearch(query: string, options?: SearchOptions): Promise
 
   printTable(
     ['Name', 'Version', 'Score', 'Description'],
-    matches.slice(0, 20).map((s) => [
-      s.name,
-      s.version,
-      String(s.security_score),
-      s.description.slice(0, 50),
-    ]),
+    matches
+      .slice(0, 20)
+      .map((s) => [s.name, s.version, String(s.security_score), s.description.slice(0, 50)]),
   );
 }

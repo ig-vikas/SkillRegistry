@@ -115,7 +115,10 @@ describe('API', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content: 'safe content only' }),
     });
-    const body = (await res.json()) as { success: boolean; data: { score: number; blocked: boolean } };
+    const body = (await res.json()) as {
+      success: boolean;
+      data: { score: number; blocked: boolean };
+    };
     expect(res.status).toBe(200);
     expect(body.success).toBe(true);
     expect(body.data.score).toBeGreaterThanOrEqual(90);

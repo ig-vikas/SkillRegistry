@@ -27,9 +27,7 @@ describe('calculateScore', () => {
 
 describe('isBlocked', () => {
   it('blocks on critical', () => {
-    expect(
-      isBlocked([{ severity: 'critical', code: 'X', message: 'a' }], 100),
-    ).toBe(true);
+    expect(isBlocked([{ severity: 'critical', code: 'X', message: 'a' }], 100)).toBe(true);
   });
 
   it('blocks on low score', () => {

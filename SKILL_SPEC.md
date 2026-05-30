@@ -15,17 +15,17 @@ my-skill/
 
 ```yaml
 ---
-name: my-skill              # kebab-case, unique
-version: 1.0.0              # semver
-description: Short summary  # max 200 characters
+name: my-skill # kebab-case, unique
+version: 1.0.0 # semver
+description: Short summary # max 200 characters
 author: github-username
-license: MIT                # SPDX identifier
-agents:                     # at least one
+license: MIT # SPDX identifier
+agents: # at least one
   - cursor
   - claude-code
-categories:                 # 1-5 categories
+categories: # 1-5 categories
   - frontend
-tags: []                   # free-form
+tags: [] # free-form
 ---
 ```
 

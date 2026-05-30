@@ -1,4 +1,9 @@
-import type { ApiEnvelope, SkillManifest, SkillSearchResult, TrendingSkill } from '@skillregistry/core';
+import type {
+  ApiEnvelope,
+  SkillManifest,
+  SkillSearchResult,
+  TrendingSkill,
+} from '@skillregistry/core';
 import { REGISTRY_API_DEFAULT } from '@skillregistry/core';
 
 /**

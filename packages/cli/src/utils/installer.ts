@@ -30,7 +30,8 @@ export interface InstallOptions {
  */
 export function getInstallDir(agent: AgentType, projectDir: string, global: boolean): string {
   const template = AGENT_DIRS[agent];
-  const base = template.startsWith('~') || global ? expandHomePath(template) : join(projectDir, template);
+  const base =
+    template.startsWith('~') || global ? expandHomePath(template) : join(projectDir, template);
   return base.endsWith('/') ? base : `${base}/`;
 }
 
@@ -44,13 +45,10 @@ export async function installSkill(options: InstallOptions): Promise<InstallResu
   const report = scanManifest(manifest);
 
   if (report.blocked && !force) {
-    throw new SecurityBlockedError(
-      `Skill blocked by security scanner (score: ${report.score})`,
-      {
-        score: report.score,
-        issues: report.issues.map((i) => ({ code: i.code, severity: i.severity })),
-      },
-    );
+    throw new SecurityBlockedError(`Skill blocked by security scanner (score: ${report.score})`, {
+      score: report.score,
+      issues: report.issues.map((i) => ({ code: i.code, severity: i.severity })),
+    });
   }
 
   const content = serializeSkillMd(manifest);

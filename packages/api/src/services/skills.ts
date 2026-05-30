@@ -3,13 +3,7 @@ import { desc, eq } from 'drizzle-orm';
 import type { RegistryEntry, SkillManifest } from '@skillregistry/core';
 import { hashContent } from '@skillregistry/core';
 import type { Database } from '../db/client.js';
-import {
-  skillAgents,
-  skillCategories,
-  skillTags,
-  skills,
-  users,
-} from '../db/schema.js';
+import { skillAgents, skillCategories, skillTags, skills, users } from '../db/schema.js';
 import { scanAndPersist } from './scanner.js';
 
 /**
@@ -33,11 +27,7 @@ export async function getSkillByName(db: Database, name: string) {
  * @param manifest - Skill manifest
  * @param authorId - Author user ID
  */
-export async function publishSkill(
-  db: Database,
-  manifest: SkillManifest,
-  authorId: string,
-) {
+export async function publishSkill(db: Database, manifest: SkillManifest, authorId: string) {
   const id = randomUUID();
   const checksum = hashContent(manifest.content);
 
@@ -85,15 +75,15 @@ export async function buildRegistryIndex(db: Database) {
   const index: Record<string, RegistryEntry> = {};
 
   for (const skill of allSkills) {
-    const agents = await db
-      .select()
-      .from(skillAgents)
-      .where(eq(skillAgents.skillId, skill.id));
+    const agents = await db.select().from(skillAgents).where(eq(skillAgents.skillId, skill.id));
     const categories = await db
       .select()
       .from(skillCategories)
       .where(eq(skillCategories.skillId, skill.id));
-    const [author] = await db.select().from(users).where(eq(users.id, skill.authorId ?? ''));
+    const [author] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, skill.authorId ?? ''));
 
     index[skill.name] = {
       name: skill.name,

@@ -54,8 +54,7 @@ export function printTable(headers: string[], rows: string[][]): void {
  * @param report - Security report
  */
 export function printSecurityReport(report: SecurityReport): void {
-  const color =
-    report.score >= 80 ? chalk.green : report.score >= 50 ? chalk.yellow : chalk.red;
+  const color = report.score >= 80 ? chalk.green : report.score >= 50 ? chalk.yellow : chalk.red;
   console.log(`\nSecurity score: ${color(String(report.score))}/100`);
   console.log(`Passed: ${report.passed ? chalk.green('yes') : chalk.red('no')}`);
   console.log(`Blocked: ${report.blocked ? chalk.red('yes') : chalk.green('no')}`);
@@ -69,7 +68,9 @@ export function printSecurityReport(report: SecurityReport): void {
           : issue.severity === 'high'
             ? chalk.magenta(issue.severity)
             : chalk.gray(issue.severity);
-      console.log(`  [${sev}] ${issue.code}: ${issue.message}${issue.line ? ` (line ${issue.line})` : ''}`);
+      console.log(
+        `  [${sev}] ${issue.code}: ${issue.message}${issue.line ? ` (line ${issue.line})` : ''}`,
+      );
     }
   }
 }

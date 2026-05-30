@@ -14,7 +14,9 @@ export function createStatsRoutes(db: Database) {
   app.get('/', async (c) => {
     const [skillCount] = await db.select({ count: count() }).from(skills);
     const [userCount] = await db.select({ count: count() }).from(users);
-    const [downloadSum] = await db.select({ total: sql<number>`sum(${skills.downloads})` }).from(skills);
+    const [downloadSum] = await db
+      .select({ total: sql<number>`sum(${skills.downloads})` })
+      .from(skills);
 
     const totalSkills = skillCount?.count ?? 0;
     const totalAuthors = userCount?.count ?? 0;

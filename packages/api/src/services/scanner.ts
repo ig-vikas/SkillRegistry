@@ -25,10 +25,7 @@ export async function scanAndPersist(db: Database, skillId: string, manifest: Sk
     scannedAt: report.scanned_at,
   });
 
-  await db
-    .update(skills)
-    .set({ securityScore: report.score })
-    .where(eq(skills.id, skillId));
+  await db.update(skills).set({ securityScore: report.score }).where(eq(skills.id, skillId));
 
   return report;
 }

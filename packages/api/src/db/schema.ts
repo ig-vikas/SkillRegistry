@@ -7,7 +7,9 @@ export const users = sqliteTable('users', {
   username: text('username').notNull(),
   displayName: text('display_name'),
   avatarUrl: text('avatar_url'),
-  createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(datetime('now'))`),
 });
 
 export const skills = sqliteTable(
@@ -26,10 +28,17 @@ export const skills = sqliteTable(
     verified: integer('verified', { mode: 'boolean' }).notNull().default(false),
     downloads: integer('downloads').notNull().default(0),
     checksum: text('checksum').notNull(),
-    createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
-    updatedAt: text('updated_at').notNull().default(sql`(datetime('now'))`),
+    createdAt: text('created_at')
+      .notNull()
+      .default(sql`(datetime('now'))`),
+    updatedAt: text('updated_at')
+      .notNull()
+      .default(sql`(datetime('now'))`),
   },
-  (t) => [uniqueIndex('skills_name_version').on(t.name, t.version), index('skills_name_idx').on(t.name)],
+  (t) => [
+    uniqueIndex('skills_name_version').on(t.name, t.version),
+    index('skills_name_idx').on(t.name),
+  ],
 );
 
 export const skillAgents = sqliteTable('skill_agents', {
@@ -72,7 +81,9 @@ export const downloads = sqliteTable('downloads', {
     .references(() => skills.id, { onDelete: 'cascade' }),
   userAgent: text('user_agent'),
   ipHash: text('ip_hash'),
-  createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(datetime('now'))`),
 });
 
 export const collections = sqliteTable('collections', {
@@ -80,7 +91,9 @@ export const collections = sqliteTable('collections', {
   name: text('name').notNull(),
   description: text('description'),
   authorId: text('author_id').references(() => users.id),
-  createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`(datetime('now'))`),
 });
 
 export const collectionSkills = sqliteTable('collection_skills', {

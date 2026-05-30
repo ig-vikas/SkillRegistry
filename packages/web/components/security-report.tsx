@@ -29,7 +29,9 @@ export function SecurityReportView({ report }: SecurityReportProps) {
       <ul className="space-y-2">
         {report.issues.map((issue, i) => (
           <li key={i} className="rounded border border-zinc-800 p-3 text-sm">
-            <span className="font-mono text-xs text-zinc-500">[{issue.severity}] {issue.code}</span>
+            <span className="font-mono text-xs text-zinc-500">
+              [{issue.severity}] {issue.code}
+            </span>
             <p className="mt-1">{issue.message}</p>
             {issue.line && <p className="text-zinc-500">Line {issue.line}</p>}
           </li>

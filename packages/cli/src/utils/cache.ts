@@ -42,11 +42,7 @@ export async function getCachedIndex(): Promise<RegistryIndex | null> {
  */
 export async function setCachedIndex(index: RegistryIndex): Promise<void> {
   await ensureCache();
-  await writeFile(
-    getIndexPath(),
-    JSON.stringify({ cachedAt: Date.now(), index }, null, 2),
-    'utf8',
-  );
+  await writeFile(getIndexPath(), JSON.stringify({ cachedAt: Date.now(), index }, null, 2), 'utf8');
 }
 
 /**
@@ -55,10 +51,7 @@ export async function setCachedIndex(index: RegistryIndex): Promise<void> {
  * @param version - Skill version
  * @returns Cached manifest or null
  */
-export async function getSkillCache(
-  name: string,
-  version: string,
-): Promise<SkillManifest | null> {
+export async function getSkillCache(name: string, version: string): Promise<SkillManifest | null> {
   try {
     const path = join(getCacheDir(), 'skills', name, version, 'manifest.json');
     const raw = await readFile(path, 'utf8');

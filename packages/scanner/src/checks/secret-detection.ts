@@ -12,9 +12,7 @@ const checkSecretDetection: CheckFunction = (content, _metadata) => {
     'critical',
     'Potential secret or credential detected',
   );
-  return issues.map((issue) =>
-    issue.evidence ? { ...issue, evidence: '[REDACTED]' } : issue,
-  );
+  return issues.map((issue) => (issue.evidence ? { ...issue, evidence: '[REDACTED]' } : issue));
 };
 
 export default checkSecretDetection;

@@ -8,7 +8,10 @@ export type ErrorStatus = 400 | 401 | 403 | 404 | 409 | 422 | 429 | 500;
  * @param meta - Optional metadata
  * @returns API envelope
  */
-export function ok<T>(data: T, meta: PaginatedMeta | Record<string, unknown> | null = null): ApiEnvelope<T> {
+export function ok<T>(
+  data: T,
+  meta: PaginatedMeta | Record<string, unknown> | null = null,
+): ApiEnvelope<T> {
   return { success: true, data, error: null, meta };
 }
 

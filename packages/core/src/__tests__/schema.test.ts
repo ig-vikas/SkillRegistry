@@ -45,14 +45,7 @@ describe('skillFrontmatterSchema', () => {
   it('rejects more than 5 categories', () => {
     const result = skillFrontmatterSchema.safeParse({
       ...valid,
-      categories: [
-        'frontend',
-        'backend',
-        'security',
-        'devops',
-        'ai-ml',
-        'database',
-      ],
+      categories: ['frontend', 'backend', 'security', 'devops', 'ai-ml', 'database'],
     });
     expect(result.success).toBe(false);
   });

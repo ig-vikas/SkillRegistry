@@ -11,7 +11,7 @@ The 8-point security scanner uses pattern matching and heuristics. It cannot gua
 ## Supported versions
 
 | Version | Supported |
-|---------|-----------|
+| ------- | --------- |
 | 0.1.x   | ✅        |
 
 ## Best practices
