@@ -13,12 +13,7 @@ import { scanSkill } from '@skillregistry/scanner';
 import { detectInstalledAgents } from '@skillregistry/cli/agent-detector';
 import { installSkill, listInstalled } from '@skillregistry/cli/installer';
 import { agentTypeSchema, categorySchema } from '@skillregistry/core';
-import type {
-  AgentType,
-  SkillManifest,
-  SkillSearchResult,
-  TrendingSkill,
-} from '@skillregistry/core';
+import type { AgentType, SkillManifest, SkillSearchResult, TrendingSkill } from '@skillregistry/core';
 import { RegistryClient } from './client.js';
 
 export class ToolError extends Error {
@@ -51,10 +46,7 @@ export const toolInputSchemas = {
     agent: agentTypeSchema.optional(),
     project_dir: z.string().optional(),
   }),
-  list_installed: z.object({
-    agent: agentTypeSchema.optional(),
-    project_dir: z.string().optional(),
-  }),
+  list_installed: z.object({ agent: agentTypeSchema.optional(), project_dir: z.string().optional() }),
   check_updates: z.object({ project_dir: z.string().optional() }),
   scan_skill: z.object({ content: z.string().min(1) }),
   get_trending: z.object({
@@ -91,9 +83,7 @@ export async function callTool(
       const input = toolInputSchemas.install_skill.parse(args);
       const projectDir = input.project_dir ?? process.cwd();
       const manifest = await registryClient.getSkill(input.name);
-      const agents: AgentType[] = input.agent
-        ? [input.agent]
-        : await detectInstalledAgents(projectDir);
+      const agents: AgentType[] = input.agent ? [input.agent] : await detectInstalledAgents(projectDir);
       return installSkill({ manifest, agents, projectDir });
     }
     case 'list_installed': {
@@ -120,9 +110,7 @@ function textResult(value: unknown) {
   return { content: [{ type: 'text' as const, text: JSON.stringify(value, null, 2) }] };
 }
 
-export function createSkillRegistryServer(
-  registryClient: RegistryClientLike = new RegistryClient(),
-) {
+export function createSkillRegistryServer(registryClient: RegistryClientLike = new RegistryClient()) {
   const server = new Server(
     { name: 'skillregistry', version: '0.1.0' },
     { capabilities: { tools: {}, resources: {} } },
@@ -212,12 +200,7 @@ export function createSkillRegistryServer(
       return textResult(await callTool(name, args, registryClient));
     } catch (err) {
       return {
-        content: [
-          {
-            type: 'text' as const,
-            text: `Error: ${err instanceof Error ? err.message : 'Unknown'}`,
-          },
-        ],
+        content: [{ type: 'text' as const, text: `Error: ${err instanceof Error ? err.message : 'Unknown'}` }],
         isError: true,
       };
     }
@@ -227,11 +210,7 @@ export function createSkillRegistryServer(
     resources: [
       { uri: 'skillregistry://catalog', name: 'Skill Catalog', mimeType: 'application/json' },
       { uri: 'skillregistry://skill/{name}', name: 'Skill Content', mimeType: 'text/markdown' },
-      {
-        uri: 'skillregistry://security/{name}',
-        name: 'Security Report',
-        mimeType: 'application/json',
-      },
+      { uri: 'skillregistry://security/{name}', name: 'Security Report', mimeType: 'application/json' },
     ],
   }));
 

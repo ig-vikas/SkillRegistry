@@ -33,10 +33,7 @@ export async function getTrending(
       recentDownloads: sql<number>`count(${downloads.id})`.as('recent'),
     })
     .from(skills)
-    .leftJoin(
-      downloads,
-      sql`${downloads.skillId} = ${skills.id} AND ${downloads.createdAt} >= ${since}`,
-    )
+    .leftJoin(downloads, sql`${downloads.skillId} = ${skills.id} AND ${downloads.createdAt} >= ${since}`)
     .groupBy(skills.id)
     .orderBy(desc(sql`recent`))
     .limit(limit);

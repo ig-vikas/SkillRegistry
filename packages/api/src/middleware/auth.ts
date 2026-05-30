@@ -31,7 +31,10 @@ export function authMiddleware(secret: string): MiddlewareHandler {
     }
 
     try {
-      const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(secret));
+      const { payload } = await jose.jwtVerify(
+        token,
+        new TextEncoder().encode(secret),
+      );
       c.set('user', {
         id: String(payload.sub),
         username: String(payload.username),
@@ -63,7 +66,10 @@ export function optionalAuthMiddleware(secret: string): MiddlewareHandler {
     const token = header?.startsWith('Bearer ') ? header.slice(7) : undefined;
     if (token) {
       try {
-        const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(secret));
+        const { payload } = await jose.jwtVerify(
+          token,
+          new TextEncoder().encode(secret),
+        );
         c.set('user', {
           id: String(payload.sub),
           username: String(payload.username),

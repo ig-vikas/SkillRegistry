@@ -1,14 +1,20 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-05-30T19:03:31.850Z",
+  "updated_at": "2026-05-30T14:41:34.133Z",
   "skills": {
     "a11y-audit": {
       "name": "a11y-audit",
       "version": "1.0.0",
       "description": "WCAG 2.1 accessibility audits and remediation guidance.",
       "author": "skillregistry",
-      "categories": ["accessibility", "frontend"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "accessibility",
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -19,8 +25,14 @@
       "version": "1.0.0",
       "description": "REST API design, versioning, and OpenAPI documentation.",
       "author": "skillregistry",
-      "categories": ["backend", "architecture"],
-      "agents": ["cursor", "codex"],
+      "categories": [
+        "backend",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -31,8 +43,12 @@
       "version": "1.0.0",
       "description": "CI/CD pipeline patterns for reliable deployments.",
       "author": "skillregistry",
-      "categories": ["devops"],
-      "agents": ["cursor"],
+      "categories": [
+        "devops"
+      ],
+      "agents": [
+        "cursor"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -43,8 +59,14 @@
       "version": "1.0.0",
       "description": "Dockerfile best practices and multi-stage builds.",
       "author": "skillregistry",
-      "categories": ["devops", "cloud"],
-      "agents": ["cursor", "codex"],
+      "categories": [
+        "devops",
+        "cloud"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -55,8 +77,13 @@
       "version": "1.0.0",
       "description": "GitHub Actions CI/CD workflows and reusable actions.",
       "author": "skillregistry",
-      "categories": ["devops"],
-      "agents": ["cursor", "copilot"],
+      "categories": [
+        "devops"
+      ],
+      "agents": [
+        "cursor",
+        "copilot"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -67,8 +94,12 @@
       "version": "1.0.0",
       "description": "GraphQL schema design, resolvers, and N+1 prevention.",
       "author": "skillregistry",
-      "categories": ["backend"],
-      "agents": ["cursor"],
+      "categories": [
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -79,8 +110,14 @@
       "version": "1.0.0",
       "description": "Input validation with Zod and sanitization strategies.",
       "author": "skillregistry",
-      "categories": ["security", "backend"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "security",
+        "backend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -91,8 +128,13 @@
       "version": "1.0.0",
       "description": "JWT authentication hardening and token lifecycle management.",
       "author": "skillregistry",
-      "categories": ["security", "backend"],
-      "agents": ["cursor"],
+      "categories": [
+        "security",
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -103,8 +145,13 @@
       "version": "1.0.0",
       "description": "Build MCP servers with the Model Context Protocol SDK.",
       "author": "skillregistry",
-      "categories": ["ai-ml"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "ai-ml"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -115,8 +162,13 @@
       "version": "1.0.0",
       "description": "Next.js App Router, RSC, and deployment best practices.",
       "author": "skillregistry",
-      "categories": ["frontend"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -127,8 +179,14 @@
       "version": "1.0.0",
       "description": "OWASP Top 10 vulnerabilities and secure coding practices.",
       "author": "skillregistry",
-      "categories": ["security"],
-      "agents": ["cursor", "claude-code", "copilot"],
+      "categories": [
+        "security"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -139,8 +197,14 @@
       "version": "1.0.0",
       "description": "PostgreSQL query optimization, indexing, and schema design.",
       "author": "skillregistry",
-      "categories": ["database", "backend"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -151,8 +215,14 @@
       "version": "1.0.0",
       "description": "Prompt engineering techniques for reliable LLM outputs.",
       "author": "skillregistry",
-      "categories": ["ai-ml"],
-      "agents": ["cursor", "claude-code", "gemini-cli"],
+      "categories": [
+        "ai-ml"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "gemini-cli"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -163,8 +233,13 @@
       "version": "1.0.0",
       "description": "RAG architecture, chunking, and retrieval optimization.",
       "author": "skillregistry",
-      "categories": ["ai-ml", "database"],
-      "agents": ["cursor"],
+      "categories": [
+        "ai-ml",
+        "database"
+      ],
+      "agents": [
+        "cursor"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -175,8 +250,13 @@
       "version": "1.0.0",
       "description": "Expert React patterns, hooks, and performance optimization.",
       "author": "skillregistry",
-      "categories": ["frontend"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -187,8 +267,13 @@
       "version": "1.0.0",
       "description": "Redis caching, pub/sub, and data structure patterns.",
       "author": "skillregistry",
-      "categories": ["database", "backend"],
-      "agents": ["cursor"],
+      "categories": [
+        "database",
+        "backend"
+      ],
+      "agents": [
+        "cursor"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -199,8 +284,13 @@
       "version": "1.0.0",
       "description": "Safe refactoring patterns and code smell remediation.",
       "author": "skillregistry",
-      "categories": ["code-quality"],
-      "agents": ["cursor", "windsurf"],
+      "categories": [
+        "code-quality"
+      ],
+      "agents": [
+        "cursor",
+        "windsurf"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -211,8 +301,13 @@
       "version": "1.0.0",
       "description": "Tailwind CSS utility patterns and design system setup.",
       "author": "skillregistry",
-      "categories": ["frontend"],
-      "agents": ["cursor", "windsurf"],
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "windsurf"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -223,8 +318,14 @@
       "version": "1.0.0",
       "description": "Test-driven development with Vitest and Testing Library.",
       "author": "skillregistry",
-      "categories": ["testing", "code-quality"],
-      "agents": ["cursor", "claude-code"],
+      "categories": [
+        "testing",
+        "code-quality"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,
@@ -235,8 +336,13 @@
       "version": "1.0.0",
       "description": "Vue 3 Composition API, Pinia, and component design.",
       "author": "skillregistry",
-      "categories": ["frontend"],
-      "agents": ["cursor", "codex"],
+      "categories": [
+        "frontend"
+      ],
+      "agents": [
+        "cursor",
+        "codex"
+      ],
       "security_score": 100,
       "verified": true,
       "downloads": 0,

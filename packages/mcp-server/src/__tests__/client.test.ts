@@ -61,8 +61,7 @@ const trendingResult: TrendingSkill = {
 function createFakeClient(): RegistryClientLike {
   return {
     async search(_query, opts) {
-      if (opts?.category && !searchResult.categories.some((category) => category === opts.category))
-        return [];
+      if (opts?.category && !searchResult.categories.some((category) => category === opts.category)) return [];
       return [searchResult];
     },
     async getSkill(name) {
@@ -127,28 +126,20 @@ describe('MCP server tools', () => {
   });
 
   it('get_skill nonexistent throws ToolError', async () => {
-    await expect(
-      callTool('get_skill', { name: 'nonexistent' }, createFakeClient()),
-    ).rejects.toThrow(ToolError);
+    await expect(callTool('get_skill', { name: 'nonexistent' }, createFakeClient())).rejects.toThrow(
+      ToolError,
+    );
   });
 
   it('scan_skill returns clean SecurityReport', async () => {
-    const report = (await callTool(
-      'scan_skill',
-      { content: cleanContent },
-      createFakeClient(),
-    )) as {
+    const report = (await callTool('scan_skill', { content: cleanContent }, createFakeClient())) as {
       blocked: boolean;
     };
     expect(report.blocked).toBe(false);
   });
 
   it('scan_skill returns blocked SecurityReport for malicious content', async () => {
-    const report = (await callTool(
-      'scan_skill',
-      { content: maliciousContent },
-      createFakeClient(),
-    )) as {
+    const report = (await callTool('scan_skill', { content: maliciousContent }, createFakeClient())) as {
       blocked: boolean;
     };
     expect(report.blocked).toBe(true);
@@ -165,11 +156,7 @@ describe('MCP server tools', () => {
 
   it('list_installed returns array even if empty', async () => {
     tempDir = await mkdtemp(join(tmpdir(), 'skillregistry-mcp-'));
-    const installed = (await callTool(
-      'list_installed',
-      { project_dir: tempDir },
-      createFakeClient(),
-    )) as unknown[];
+    const installed = (await callTool('list_installed', { project_dir: tempDir }, createFakeClient())) as unknown[];
     expect(installed).toEqual([]);
   });
 

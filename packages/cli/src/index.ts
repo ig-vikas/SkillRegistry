@@ -44,21 +44,16 @@ program
   .option('--global', 'Install to global agent dirs')
   .option('--force', 'Install even if security scan blocks')
   .option('--skills-dir <dir>', 'Local skills directory')
-  .action(
-    (
-      skill: string,
-      opts: { agent?: string; global?: boolean; force?: boolean; skillsDir?: string },
-    ) => {
-      const globalOpts = program.opts<{ registryFile?: string }>();
-      return runAdd(skill, {
-        ...(opts.agent ? { agent: opts.agent as AgentType } : {}),
-        ...(opts.global ? { global: true } : {}),
-        ...(opts.force ? { force: true } : {}),
-        ...(opts.skillsDir ? { skillsDir: opts.skillsDir } : {}),
-        ...(globalOpts.registryFile ? { registryPath: globalOpts.registryFile } : {}),
-      });
-    },
-  );
+  .action((skill: string, opts: { agent?: string; global?: boolean; force?: boolean; skillsDir?: string }) => {
+    const globalOpts = program.opts<{ registryFile?: string }>();
+    return runAdd(skill, {
+      ...(opts.agent ? { agent: opts.agent as AgentType } : {}),
+      ...(opts.global ? { global: true } : {}),
+      ...(opts.force ? { force: true } : {}),
+      ...(opts.skillsDir ? { skillsDir: opts.skillsDir } : {}),
+      ...(globalOpts.registryFile ? { registryPath: globalOpts.registryFile } : {}),
+    });
+  });
 
 program
   .command('remove <skill>')
@@ -120,10 +115,7 @@ program
   .description('Update one or all skills')
   .action((skill?: string) => {
     const globalOpts = program.opts<{ registryFile?: string }>();
-    return runUpdate(
-      skill,
-      globalOpts.registryFile ? { registryPath: globalOpts.registryFile } : {},
-    );
+    return runUpdate(skill, globalOpts.registryFile ? { registryPath: globalOpts.registryFile } : {});
   });
 
 program

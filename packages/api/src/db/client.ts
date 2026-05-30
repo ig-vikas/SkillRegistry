@@ -11,7 +11,9 @@ export type Database = LibSQLDatabase<typeof schema>;
  * @returns Drizzle database
  */
 export function createDb(url: string, authToken?: string): Database {
-  const client: Client = createClient(authToken ? { url, authToken } : { url });
+  const client: Client = createClient(
+    authToken ? { url, authToken } : { url },
+  );
   return drizzle(client, { schema });
 }
 

@@ -28,24 +28,24 @@ npx skillregistry init
 
 ## Comparison
 
-| Feature                  | SkillRegistry            | npm          | Cursor rules |
-| ------------------------ | ------------------------ | ------------ | ------------ |
-| Security scanning        | 8 checks, blocks install | ❌           | ❌           |
-| Multi-agent support      | 7 agents                 | N/A          | Cursor only  |
-| Version locking          | ✅                       | ✅           | ❌           |
-| MCP integration          | ✅                       | ❌           | ❌           |
-| Open standard (SKILL.md) | ✅                       | package.json | ❌           |
+| Feature | SkillRegistry | npm | Cursor rules |
+|---------|---------------|-----|--------------|
+| Security scanning | 8 checks, blocks install | ❌ | ❌ |
+| Multi-agent support | 7 agents | N/A | Cursor only |
+| Version locking | ✅ | ✅ | ❌ |
+| MCP integration | ✅ | ❌ | ❌ |
+| Open standard (SKILL.md) | ✅ | package.json | ❌ |
 
 ## Monorepo
 
-| Package                     | Description             |
-| --------------------------- | ----------------------- |
-| `@skillregistry/core`       | Types, schema, parser   |
-| `@skillregistry/scanner`    | Security scanner engine |
-| `@skillregistry/cli`        | CLI tool                |
-| `@skillregistry/api`        | REST API (Hono.js)      |
-| `@skillregistry/mcp-server` | MCP server              |
-| `@skillregistry/web`        | Next.js registry site   |
+| Package | Description |
+|---------|-------------|
+| `@skillregistry/core` | Types, schema, parser |
+| `@skillregistry/scanner` | Security scanner engine |
+| `@skillregistry/cli` | CLI tool |
+| `@skillregistry/api` | REST API (Hono.js) |
+| `@skillregistry/mcp-server` | MCP server |
+| `@skillregistry/web` | Next.js registry site |
 
 ## Development
 

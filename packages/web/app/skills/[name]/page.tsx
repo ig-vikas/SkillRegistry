@@ -6,7 +6,11 @@ import { SecurityBadge } from '../../../components/security-badge';
 import { SkillReadme } from '../../../components/skill-readme';
 import { getSkill } from '../../../lib/api';
 
-export default async function SkillDetailPage({ params }: { params: Promise<{ name: string }> }) {
+export default async function SkillDetailPage({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
   const { name } = await params;
 
   let skill: Awaited<ReturnType<typeof getSkill>> | null = null;
@@ -18,17 +22,14 @@ export default async function SkillDetailPage({ params }: { params: Promise<{ na
 
   if (!skill) notFound();
 
-  const content =
-    (skill as { content?: string }).content ?? `# ${skill.name}\n\nNo content available.`;
+  const content = (skill as { content?: string }).content ?? `# ${skill.name}\n\nNo content available.`;
 
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold">{skill.name}</h1>
-          <p className="text-zinc-400">
-            v{skill.version} · @{skill.author}
-          </p>
+          <p className="text-zinc-400">v{skill.version} · @{skill.author}</p>
         </div>
         <SecurityBadge score={skill.security_score} />
       </div>

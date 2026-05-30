@@ -2,7 +2,11 @@ import { notFound } from 'next/navigation';
 import { SecurityReportView } from '../../../../components/security-report';
 import { getSecurityReport } from '../../../../lib/api';
 
-export default async function SecurityPage({ params }: { params: Promise<{ name: string }> }) {
+export default async function SecurityPage({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
   const { name } = await params;
 
   try {

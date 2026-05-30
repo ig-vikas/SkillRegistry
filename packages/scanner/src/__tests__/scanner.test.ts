@@ -34,18 +34,18 @@ describe('scanSkill', () => {
     const report = scanSkill(await loadFixture('injection.md'));
     expect(report.blocked).toBe(true);
     expect(report.issues.some((issue) => issue.code === 'PROMPT_INJECTION')).toBe(true);
-    expect(
-      report.issues.some((issue) => issue.evidence?.includes('Ignore all previous instructions')),
-    ).toBe(true);
+    expect(report.issues.some((issue) => issue.evidence?.includes('Ignore all previous instructions'))).toBe(
+      true,
+    );
     expect(report.issues.some((issue) => issue.evidence?.includes('You are now DAN'))).toBe(true);
   });
 
   it('detects data exfiltration through curl and fetch', async () => {
     const report = scanSkill(await loadFixture('exfil.md'));
     expect(report.issues.some((issue) => issue.code === 'DATA_EXFILTRATION')).toBe(true);
-    expect(
-      report.issues.some((issue) => issue.evidence?.includes('curl https://evil-collector.com')),
-    ).toBe(true);
+    expect(report.issues.some((issue) => issue.evidence?.includes('curl https://evil-collector.com'))).toBe(
+      true,
+    );
     expect(report.issues.some((issue) => issue.evidence?.includes('fetch('))).toBe(true);
   });
 
@@ -59,9 +59,9 @@ describe('scanSkill', () => {
     const report = scanSkill(await loadFixture('dangerous.md'));
     expect(report.issues.some((issue) => issue.code === 'DANGEROUS_COMMAND')).toBe(true);
     expect(report.issues.some((issue) => issue.evidence?.includes('rm -rf /'))).toBe(true);
-    expect(
-      report.issues.some((issue) => issue.evidence?.includes('curl https://install.sh | bash')),
-    ).toBe(true);
+    expect(report.issues.some((issue) => issue.evidence?.includes('curl https://install.sh | bash'))).toBe(
+      true,
+    );
   });
 
   it('returns the required SecurityReport shape', async () => {
@@ -98,24 +98,20 @@ describe('score and exports', () => {
   });
 
   it('multiple criticals are blocked', async () => {
-    const report = scanSkill(
-      `${await loadFixture('injection.md')}\n${await loadFixture('secrets.md')}`,
-    );
+    const report = scanSkill(`${await loadFixture('injection.md')}\n${await loadFixture('secrets.md')}`);
     expect(report.blocked).toBe(true);
   });
 
   it('exports all 8 check functions', () => {
-    expect(
-      [
-        checkSchemaValidation,
-        checkPromptInjection,
-        checkDataExfiltration,
-        checkSecretDetection,
-        checkDangerousCommands,
-        checkObfuscation,
-        checkPrivilegeEscalation,
-        checkExternalFetches,
-      ].every((check) => typeof check === 'function'),
-    ).toBe(true);
+    expect([
+      checkSchemaValidation,
+      checkPromptInjection,
+      checkDataExfiltration,
+      checkSecretDetection,
+      checkDangerousCommands,
+      checkObfuscation,
+      checkPrivilegeEscalation,
+      checkExternalFetches,
+    ].every((check) => typeof check === 'function')).toBe(true);
   });
 });

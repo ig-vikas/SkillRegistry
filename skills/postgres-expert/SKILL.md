@@ -16,7 +16,7 @@ tags:
 
 # PostgreSQL Expert
 
-Use EXPLAIN ANALYZE. Index foreign keys. Avoid SELECT \* in production.
+Use EXPLAIN ANALYZE. Index foreign keys. Avoid SELECT * in production.
 
 ## Principles
 

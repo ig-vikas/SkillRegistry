@@ -21,9 +21,7 @@ export interface AuthConfig {
  * @param config - Auth configuration
  */
 export function createAuthRoutes(db: Database, config: AuthConfig) {
-  const app = new Hono<{
-    Variables: { user: { id: string; username: string; githubId: string } };
-  }>();
+  const app = new Hono<{ Variables: { user: { id: string; username: string; githubId: string } } }>();
   const github = new GitHub(config.githubClientId, config.githubClientSecret, null);
   app.get('/github', async (c) => {
     const state = randomUUID();
@@ -91,13 +89,16 @@ export function createAuthRoutes(db: Database, config: AuthConfig) {
   });
 
   app.post('/logout', () => {
-    return new Response(JSON.stringify(ok({ loggedOut: true })), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Set-Cookie': 'skr_token=; Path=/; HttpOnly; Max-Age=0',
+    return new Response(
+      JSON.stringify(ok({ loggedOut: true })),
+      {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Set-Cookie': 'skr_token=; Path=/; HttpOnly; Max-Age=0',
+        },
       },
-    });
+    );
   });
 
   return app;

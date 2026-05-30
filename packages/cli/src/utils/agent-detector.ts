@@ -38,7 +38,10 @@ async function commandExists(cmd: string): Promise<boolean> {
  * @param projectDir - Project directory
  * @returns Agent status
  */
-export async function detectAgent(agent: AgentType, projectDir: string): Promise<AgentStatus> {
+export async function detectAgent(
+  agent: AgentType,
+  projectDir: string,
+): Promise<AgentStatus> {
   switch (agent) {
     case 'claude-code':
       return {
@@ -50,7 +53,8 @@ export async function detectAgent(agent: AgentType, projectDir: string): Promise
       return {
         agent,
         installed:
-          (await pathExists(join(projectDir, '.cursor'))) || (await commandExists('cursor')),
+          (await pathExists(join(projectDir, '.cursor'))) ||
+          (await commandExists('cursor')),
         reason: '.cursor/ or cursor in PATH',
       };
     case 'codex':

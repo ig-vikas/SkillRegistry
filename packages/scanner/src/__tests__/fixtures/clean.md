@@ -14,21 +14,12 @@ tags:
   - clean
   - safe
 ---
-
 # Clean Skill
-
 This skill teaches safe patterns.
-
 ## Purpose
-
 Demonstrates clean skill structure.
-
 ## When to Activate
-
 - During testing
-
 ## Core Knowledge
-
 ### Pattern 1
-
 Always validate inputs before processing.

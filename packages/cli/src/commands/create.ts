@@ -49,15 +49,7 @@ export async function runCreate(name: string, options?: CreateOptions): Promise<
           type: 'checkbox',
           name: 'agents',
           message: 'Target agents:',
-          choices: [
-            'cursor',
-            'claude-code',
-            'codex',
-            'copilot',
-            'gemini-cli',
-            'openclaw',
-            'windsurf',
-          ],
+          choices: ['cursor', 'claude-code', 'codex', 'copilot', 'gemini-cli', 'openclaw', 'windsurf'],
           default: ['cursor'],
         },
         {
