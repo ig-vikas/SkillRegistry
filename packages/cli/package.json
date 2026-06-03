@@ -5,8 +5,7 @@
   "type": "module",
   "license": "MIT",
   "bin": {
-    "skillreg": "./dist/index.js",
-    "skr": "./dist/index.js"
+    "skillreg": "./dist/index.js"
   },
   "files": ["dist"],
   "main": "./dist/index.cjs",
