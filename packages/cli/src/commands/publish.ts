@@ -23,7 +23,7 @@ export async function runPublish(skillDir?: string): Promise<void> {
 
   const config = await getConfig();
   if (!config.authToken) {
-    error('Not authenticated. Set authToken in ~/.skillregistry/config.json after OAuth.');
+    error('Not authenticated. Set authToken in ~/.skillreg/config.json after OAuth.');
     process.exitCode = 1;
     return;
   }

@@ -24,7 +24,7 @@ describe('lock-file', () => {
     const updated = await readLockFile(dir);
     expect(updated.skills['test-skill']?.version).toBe('1.0.0');
 
-    const raw = await readFile(join(dir, 'skillregistry.lock.json'), 'utf8');
+    const raw = await readFile(join(dir, 'skillreg.lock.json'), 'utf8');
     expect(raw).toContain('test-skill');
   });
 });

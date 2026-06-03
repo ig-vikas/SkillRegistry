@@ -4,7 +4,7 @@
 
 ## Features
 
-- **Universal CLI** — `npx skillregistry add react-expert`
+- **Universal CLI** — `npx skillreg add react-expert`
 - **8-point security scanner** — blocks unsafe skills before install
 - **Web registry** — browse, search, and review security reports
 - **MCP server** — discover and install skills from inside your agent session

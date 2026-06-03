@@ -30,9 +30,9 @@ export async function runDoctor(cwd?: string): Promise<void> {
   console.log(`Cache: ${cached ? `${Object.keys(cached.skills).length} skills indexed` : 'empty'}`);
 
   try {
-    await access(`${projectDir}/skillregistry.lock.json`);
+    await access(`${projectDir}/skillreg.lock.json`);
     console.log('Lock file: present');
   } catch {
-    console.log('Lock file: not found (run skillregistry init)');
+    console.log('Lock file: not found (run skillreg init)');
   }
 }

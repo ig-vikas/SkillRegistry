@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-05-30T14:41:34.133Z",
+  "updated_at": "2026-05-30T19:53:40.305Z",
   "skills": {
     "a11y-audit": {
       "name": "a11y-audit",
@@ -191,6 +191,28 @@
       "verified": true,
       "downloads": 0,
       "checksum": "85da56c771bf36e9cbef76a33d043ca51912d0eb23fa8cd3e6b6b09e55990839"
+    },
+    "pnpm-expert": {
+      "name": "pnpm-expert",
+      "version": "1.0.0",
+      "description": "Advanced pnpm workspace management, dependency resolution strategies, and performance optimization for monorepos.",
+      "author": "skillregistry",
+      "categories": [
+        "devops",
+        "code-quality"
+      ],
+      "agents": [
+        "claude-code",
+        "cursor",
+        "codex",
+        "copilot",
+        "gemini-cli",
+        "windsurf"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "ce9c92d1227aafcb77eee8cca9e15cd29d383adc69cb06fb59cd9c40030d6326"
     },
     "postgres-expert": {
       "name": "postgres-expert",

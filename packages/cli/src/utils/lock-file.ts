@@ -4,7 +4,7 @@ import type { AgentType, LockFile, LockSkillEntry } from '@skillregistry/core';
 import { LOCKFILE_VERSION, lockFileSchema } from '@skillregistry/core';
 import { ValidationError } from '@skillregistry/core';
 
-export const LOCK_FILENAME = 'skillregistry.lock.json';
+export const LOCK_FILENAME = 'skillreg.lock.json';
 
 /**
  * Read lock file from project directory.
@@ -18,7 +18,7 @@ export async function readLockFile(cwd: string): Promise<LockFile> {
     const parsed: unknown = JSON.parse(raw);
     const result = lockFileSchema.safeParse(parsed);
     if (!result.success) {
-      throw new ValidationError('Invalid skillregistry.lock.json');
+      throw new ValidationError('Invalid skillreg.lock.json');
     }
     return result.data as LockFile;
   } catch (err) {

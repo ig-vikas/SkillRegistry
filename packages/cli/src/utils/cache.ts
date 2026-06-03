@@ -5,7 +5,7 @@ import type { RegistryIndex, SkillManifest } from '@skillregistry/core';
 import { getConfig } from './config.js';
 
 export function getCacheDir(): string {
-  return process.env.SKILLREGISTRY_CACHE_DIR ?? join(homedir(), '.cache', 'skillregistry');
+  return process.env.SKILLREGISTRY_CACHE_DIR ?? join(homedir(), '.cache', 'skillreg');
 }
 
 function getIndexPath(): string {

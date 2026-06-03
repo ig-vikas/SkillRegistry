@@ -17,5 +17,5 @@ The 8-point security scanner uses pattern matching and heuristics. It cannot gua
 ## Best practices
 
 - Do not publish secrets in SKILL.md files
-- Run `skillregistry audit` periodically on installed skills
+- Run `skillreg audit` periodically on installed skills
 - Use `--force` only when you trust the skill source

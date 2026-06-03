@@ -17,7 +17,7 @@ import { runUpdate } from './commands/update.js';
 const program = new Command();
 
 program
-  .name('skillregistry')
+  .name('skillreg')
   .description('npm for AI agent skills — discover, install, and scan skills')
   .version('0.1.0')
   .option('--registry <url>', 'Registry API URL')
@@ -25,7 +25,7 @@ program
 
 program
   .command('init')
-  .description('Initialize skillregistry.lock.json')
+  .description('Initialize skillreg.lock.json')
   .action(() => runInit(process.cwd()));
 
 program

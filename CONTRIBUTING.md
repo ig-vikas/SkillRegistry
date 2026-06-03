@@ -10,7 +10,7 @@
 ## Adding a skill
 
 1. Create `skills/<name>/SKILL.md` following [SKILL_SPEC.md](./SKILL_SPEC.md)
-2. Run `npx skillregistry scan skills/<name>`
+2. Run `npx skillreg scan skills/<name>`
 3. Ensure score ≥ 50 and no critical issues
 4. Open a PR — CI will scan all skills
 

@@ -12,7 +12,7 @@ export interface UserConfig {
   authToken?: string;
 }
 
-const CONFIG_DIR = join(homedir(), '.skillregistry');
+const CONFIG_DIR = join(homedir(), '.skillreg');
 const CONFIG_PATH = join(CONFIG_DIR, 'config.json');
 
 /**

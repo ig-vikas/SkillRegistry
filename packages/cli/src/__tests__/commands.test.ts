@@ -26,7 +26,7 @@ describe('CLI commands', () => {
   let errors: string[];
 
   beforeEach(async () => {
-    tempDir = await mkdtemp(join(tmpdir(), 'skillregistry-cli-'));
+    tempDir = await mkdtemp(join(tmpdir(), 'skillreg-cli-'));
     logs = [];
     errors = [];
     vi.spyOn(console, 'log').mockImplementation((...message: unknown[]) => {
@@ -84,9 +84,9 @@ describe('CLI commands', () => {
     expect(logs.join('\n')).toContain('No skills installed.');
   });
 
-  it('init creates skillregistry.lock.json in cwd', async () => {
+  it('init creates skillreg.lock.json in cwd', async () => {
     await runInit(tempDir);
-    const raw = await readFile(join(tempDir, 'skillregistry.lock.json'), 'utf8');
+    const raw = await readFile(join(tempDir, 'skillreg.lock.json'), 'utf8');
     expect(JSON.parse(raw)).toEqual({ lockfileVersion: 1, skills: {} });
   });
 
