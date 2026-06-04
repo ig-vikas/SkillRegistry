@@ -598,7 +598,7 @@ class PairingManager {
   }
   
   private generateRandomCode(): string {
-    return Math.random().toString(36).substring(2, 8).toUpperCase();
+    return require('crypto').randomInt(100000, 1000000).toString();
   }
   
   private isApprover(userId: string): boolean {

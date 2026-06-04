@@ -44,7 +44,7 @@ const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
     'Authorization': `Bearer ${process.env.MISTRAL_KEY}`
   },
   body: JSON.stringify({
-    model: 'mistral-large',
+    model: 'mistral-large-latest',
     messages: [{ role: 'user', content: 'Hello!' }]
   })
 });
@@ -60,7 +60,7 @@ curl https://api.mistral.ai/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $MISTRAL_KEY" \
   -d '{
-    "model": "mistral-large",
+    "model": "mistral-large-latest",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
@@ -71,13 +71,13 @@ curl https://api.mistral.ai/v1/chat/completions \
 
 | Model | Context Window | Use Case | Price (Input) | Price (Output) | Notes |
 |-------|----------------|----------|---------------|----------------|-------|
-| mistral-large | 128,000 | Most capable | €0.000008/tok | €0.000024/tok | Latest model |
-| mistral-large-2402 | 128,000 | Stable | €0.000008/tok | €0.000024/tok | Feb 2024 |
-| mistral-large-2407 | 128,000 | Stable | €0.000008/tok | €0.000024/tok | July 2024 |
+| mistral-large-latest | 128,000+ | Most capable hosted chat model alias | Check current pricing | Check current pricing | Use the docs/pricing API for exact current rates |
+| mistral-small-latest | 32,000+ | Cost-effective chat model alias | Check current pricing | Check current pricing | Good default for routine tasks |
+| codestral-latest | Model-dependent | Code generation and completion | Check current pricing | Check current pricing | Use for coding-specific workloads |
 | mistral-small | 32,000 | Fast, cost-effective | €0.000002/tok | €0.000006/tok | Good balance |
 | mistral-tiny | 8,000 | Fastest, cheapest | €0.00000025/tok | €0.00000025/tok | Quick tasks |
-| mixtral-8x7b | 32,000 | Sparsely-activated | €0.00000055/tok | €0.00000055/tok | Mixture of Experts |
-| mixtral-8x22b | 64,000 | High capacity | €0.0000007/tok | €0.0000007/tok | Scaling MoE |
+| mistral-small-latest | 32,000 | Sparsely-activated | €0.00000055/tok | €0.00000055/tok | Mixture of Experts |
+| mistral-small-latest | 64,000 | High capacity | €0.0000007/tok | €0.0000007/tok | Scaling MoE |
 | codestral-latest | 32,000 | Code generation | €0.0000007/tok | €0.0000021/tok | Coding specialist |
 
 ### Embedding Models
@@ -110,7 +110,7 @@ curl https://api.mistral.ai/v1/chat/completions \
 
 ```json
 {
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello!"}
@@ -149,7 +149,7 @@ curl https://api.mistral.ai/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion",
   "created": 1717000000,
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "choices": [
     {
       "index": 0,
@@ -175,7 +175,7 @@ curl https://api.mistral.ai/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion.chunk",
   "created": 1717000000,
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "choices": [
     {
       "index": 0,
@@ -200,7 +200,7 @@ Mistral supports function calling with tools:
 
 ```json
 {
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "messages": [
     {"role": "user", "content": "What's the weather in Paris?"}
   ],
@@ -256,7 +256,7 @@ Enable content filtering:
 
 ```json
 {
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "messages": [...],
   "safe_mode": true
 }
@@ -268,7 +268,7 @@ Ensure reproducible outputs:
 
 ```json
 {
-  "model": "mistral-large",
+  "model": "mistral-large-latest",
   "messages": [...],
   "random_seed": 42
 }
@@ -434,11 +434,11 @@ app.post('/stream', async (req, res) => {
 
 ```typescript
 const MODEL_ALIASES: Record<string, string> = {
-  'large': 'mistral-large',
+  'large': 'mistral-large-latest',
   'small': 'mistral-small',
   'tiny': 'mistral-tiny',
-  'mixtral': 'mixtral-8x7b',
-  'mixtral-large': 'mixtral-8x22b',
+  'small': 'mistral-small-latest',
+  'code': 'codestral-latest',
   'codestral': 'codestral-latest',
   'embedding': 'mistral-embedding'
 };
@@ -536,17 +536,17 @@ function selectModel(task: string, budget: 'low' | 'medium' | 'high'): string {
     chat: {
       low: 'mistral-tiny',
       medium: 'mistral-small',
-      high: 'mistral-large'
+      high: 'mistral-large-latest'
     },
     coding: {
       low: 'mistral-small',
       medium: 'codestral-latest',
-      high: 'mistral-large'
+      high: 'mistral-large-latest'
     },
     long_context: {
-      low: 'mixtral-8x7b',
-      medium: 'mixtral-8x22b',
-      high: 'mistral-large'
+      low: 'mistral-small-latest',
+      medium: 'mistral-small-latest',
+      high: 'mistral-large-latest'
     },
     embedding: {
       low: 'mistral-embedding',
@@ -793,7 +793,7 @@ describe('Mistral Proxy', () => {
         id: 'chatcmpl-123',
         object: 'chat.completion',
         created: 1717000000,
-        model: 'mistral-large',
+        model: 'mistral-large-latest',
         choices: [{
           index: 0,
           message: { role: 'assistant', content: 'Hello!' },
@@ -810,7 +810,7 @@ describe('Mistral Proxy', () => {
         'Authorization': 'Bearer test-key'
       },
       body: JSON.stringify({
-        model: 'mistral-large',
+        model: 'mistral-large-latest',
         messages: [{ role: 'user', content: 'Hi' }]
       })
     });
@@ -865,14 +865,14 @@ describe('Mistral Proxy Integration', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'mistral-large',
+        model: 'mistral-large-latest',
         messages: [{ role: 'user', content: 'Test' }]
       })
     });
     
     expect(response.status).toBe(200);
     const data = await response.json();
-    expect(data.model).toBe('mistral-large');
+    expect(data.model).toBe('mistral-large-latest');
   });
   
   it('proxies embedding requests', async () => {
@@ -925,7 +925,7 @@ services:
       - "3000:3000"
     environment:
       - MISTRAL_KEY=${MISTRAL_KEY}
-      - PRIMARY_MODEL=mistral-large
+      - PRIMARY_MODEL=mistral-large-latest
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
@@ -941,7 +941,7 @@ services:
 MISTRAL_KEY=...
 
 # Optional
-PRIMARY_MODEL=mistral-large
+PRIMARY_MODEL=mistral-large-latest
 MISTRAL_URL=https://api.mistral.ai/v1
 PORT=3000
 LOG_LEVEL=info
@@ -1185,7 +1185,7 @@ global.fetch = async (url: string, options: any) => {
 ### 1. Basic Completion
 
 ```typescript
-async function complete(prompt: string, model: string = 'mistral-large') {
+async function complete(prompt: string, model: string = 'mistral-large-latest') {
   const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -1210,7 +1210,7 @@ class MistralConversation {
   private messages: any[] = [];
   private model: string;
   
-  constructor(model: string = 'mistral-large') {
+  constructor(model: string = 'mistral-large-latest') {
     this.model = model;
   }
   
@@ -1272,7 +1272,7 @@ async function callWithTools(prompt: string, tools: ToolDefinition[]) {
       'Authorization': `Bearer ${process.env.MISTRAL_KEY}`
     },
     body: JSON.stringify({
-      model: 'mistral-large',
+      model: 'mistral-large-latest',
       messages: [{ role: 'user', content: prompt }],
       tools: tools.map(t => ({
         type: 'function',
@@ -1390,7 +1390,7 @@ async function* streamComplete(prompt: string, model: string) {
 }
 
 // Usage
-for await (const chunk of streamComplete('Tell me a story', 'mistral-large')) {
+for await (const chunk of streamComplete('Tell me a story', 'mistral-large-latest')) {
   process.stdout.write(chunk);
 }
 ```
@@ -1398,7 +1398,7 @@ for await (const chunk of streamComplete('Tell me a story', 'mistral-large')) {
 ### 6. Safe Mode
 
 ```typescript
-async function safeComplete(prompt: string, model: string = 'mistral-large') {
+async function safeComplete(prompt: string, model: string = 'mistral-large-latest') {
   const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
     method: 'POST',
     headers: {

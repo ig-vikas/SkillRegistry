@@ -159,7 +159,7 @@ class MessageRouter {
 - **WebSocket**: ws/Socket.io
 - **Validation**: Zod
 - **Database**: LanceDB + SQLite
-- **Terminal**: @lydell/node-pty
+- **Terminal**: node-pty
 - **Canvas**: @napi-rs/canvas
 - **Images**: Sharp
 - **Encryption**: @matrix-org/matrix-sdk-crypto-nodejs
@@ -181,7 +181,7 @@ class MessageRouter {
 ```bash
 # Install
 pnpm init
-pnpm add express ws zod sqlite3 vectordb @lydell/node-pty @napi-rs/canvas sharp
+pnpm add express ws zod better-sqlite3 @lancedb/lancedb node-pty @napi-rs/canvas sharp
 pnpm add -D typescript vitest tsx @types/node
 
 # Basic gateway

@@ -284,7 +284,7 @@ export class WebSocketGateway {
   }
   
   private generateClientId(): string {
-    return `ws_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    return `ws_${require('crypto').randomUUID()}`;
   }
   
   public send(client: WebSocketClient, message: WebSocketResponse) {
@@ -532,7 +532,7 @@ export class WebSocketGateway {
   }
   
   private generateDeviceId(): string {
-    return `dev_${Math.random().toString(36).substring(2, 16)}`;
+    return `dev_${require('crypto').randomUUID()}`;
   }
   
   private generateToken(): string {
@@ -540,7 +540,7 @@ export class WebSocketGateway {
   }
   
   private generateMessageId(): string {
-    return `msg_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    return `msg_${require('crypto').randomUUID()}`;
   }
   
   private getUserIdFromPairing(clientId: string): string {
@@ -551,7 +551,7 @@ export class WebSocketGateway {
   
   // Generate pairing code (called from gateway)
   generatePairingCode(userId: string): string {
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const code = require('crypto').randomInt(100000, 1000000).toString();
     const expires = Date.now() + (this.gateway.getConfig().security.pairingTimeout * 1000);
     
     this.pairingCodes.set(code, {

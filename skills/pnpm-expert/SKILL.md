@@ -468,6 +468,14 @@ Use environment variables for tokens to keep them out of version control.
 
 On a fresh machine, `pnpm setup` can help you configure the global pnpm home and update your PATH environment variable. This ensures that pnpm is always available in your terminal.
 
+## Resources
+
+- [pnpm Workspaces](https://pnpm.io/workspaces) - Official workspace configuration and package linking behavior.
+- [pnpm CLI Reference](https://pnpm.io/cli/install) - Install, lockfile, and CI behavior.
+- [pnpm Settings](https://pnpm.io/npmrc) - `.npmrc` options including peer dependency and hoisting controls.
+- [Corepack](https://nodejs.org/api/corepack.html) - Node.js package-manager version management.
+- [Changesets](https://github.com/changesets/changesets) - Common monorepo versioning and release workflow.
+
 #### Conclusion (Final)
 
 The journey to becoming a pnpm expert involves constant learning and adaptation. As the ecosystem evolves, so do the best practices. By staying committed to strictness, efficiency, and security, you position yourself and your team for success in the complex world of modern JavaScript development.

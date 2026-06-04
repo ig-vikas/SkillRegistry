@@ -43,7 +43,7 @@ import requests
 NIM_ENDPOINT = "http://localhost:8000/v1/chat/completions"
 
 payload = {
-    "model": "meta-llama-3-8b-instruct",
+    "model": "meta/llama-3.1-8b-instruct",
     "messages": [{"role": "user", "content": "What is NVIDIA NIM?"}],
     "max_tokens": 512,
     "temperature": 0.7
@@ -59,7 +59,7 @@ print(response.json()["choices"][0]["message"]["content"])
 curl http://localhost:8000/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "meta-llama-3-8b-instruct",
+    "model": "meta/llama-3.1-8b-instruct",
     "messages": [{"role": "user", "content": "Explain NVIDIA NIM"}],
     "max_tokens": 256
   }'
@@ -88,7 +88,7 @@ Client Apps -> NIM Proxy (Auth, Rate Limiting, Load Balancing) -> NIM Microservi
 
 | Category | Models | Use Case |
 |----------|--------|----------|
-| LLM | llama-3-8b, llama-3-70b, mistral-7b, mixtral-8x7b, codellama-34b | Chat, text generation, code |
+| LLM | meta/llama-3.1-8b-instruct, meta/llama-3.1-70b-instruct, model-specific NGC slugs | Chat, text generation, code |
 | Embeddings | nvidia/embedding-english-v1, bge-base-en, bge-large-en | Semantic search, retrieval |
 | Reranking | nvidia/rerank-english-v1, bge-reranker-large | Passage reranking |
 | Safety | llama-guard-7b | Content moderation |
@@ -113,7 +113,7 @@ Client Apps -> NIM Proxy (Auth, Rate Limiting, Load Balancing) -> NIM Microservi
 
 ```json
 {
-  "model": "meta-llama-3-8b-instruct",
+  "model": "meta/llama-3.1-8b-instruct",
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "What is NVIDIA NIM?"}
@@ -137,7 +137,7 @@ Client Apps -> NIM Proxy (Auth, Rate Limiting, Load Balancing) -> NIM Microservi
   "id": "chatcmpl-1234567890",
   "object": "chat.completion",
   "created": 1717412345,
-  "model": "meta-llama-3-8b-instruct",
+  "model": "meta/llama-3.1-8b-instruct",
   "choices": [{
     "index": 0,
     "message": {"role": "assistant", "content": "NVIDIA NIM is..."},
@@ -154,7 +154,7 @@ Client Apps -> NIM Proxy (Auth, Rate Limiting, Load Balancing) -> NIM Microservi
   "id": "chatcmpl-1234567890",
   "object": "chat.completion.chunk",
   "created": 1717412345,
-  "model": "meta-llama-3-8b-instruct",
+  "model": "meta/llama-3.1-8b-instruct",
   "choices": [{
     "index": 0,
     "delta": {"role": "assistant", "content": "NVIDIA"},
@@ -194,7 +194,7 @@ const result = await mcpClient.callTool({
 version: '3.8'
 services:
   nim-llama-70b:
-    image: nvcr.io/ea-nvidia-ai/nim:llama-3-70b
+    image: nvcr.io/ea-nvidia-ai/nim:llama-3.1-70b
     deploy:
       resources:
         reservations:
@@ -219,7 +219,7 @@ services:
 | GPTQ | ~75% | Good | Slightly faster |
 
 ```bash
-docker run --gpus all -e NIM_QUANTIZATION=int4 nvcr.io/ea-nvidia-ai/nim:llama-3-8b
+docker run --gpus all -e NIM_QUANTIZATION=int4 nvcr.io/ea-nvidia-ai/nim:llama-3.1-8b
 ```
 
 ### 4. Auto-Scaling with Kubernetes
@@ -235,7 +235,7 @@ spec:
     spec:
       containers:
       - name: nim
-        image: nvcr.io/ea-nvidia-ai/nim:llama-3-8b
+        image: nvcr.io/ea-nvidia-ai/nim:llama-3.1-8b
         resources:
           limits:
             nvidia.com/gpu: 1
@@ -600,7 +600,7 @@ describe('NIM Proxy', () => {
     vi.mocked(axios.post).mockResolvedValue({ data: { id: '1', choices: [{ message: { content: 'Hi' } }] } });
     
     const response = await proxy.chatCompletion({
-      model: 'llama-3-8b',
+      model: 'llama-3.1-8b',
       messages: [{ role: 'user', content: 'Hello' }],
       max_tokens: 50
     });
@@ -635,7 +635,7 @@ describe('NIM Proxy Integration', () => {
     });
     
     const response = await axios.post('http://localhost:4000/v1/chat/completions', {
-      model: 'llama-3-8b',
+      model: 'llama-3.1-8b',
       messages: [{ role: 'user', content: 'Test' }]
     });
     
@@ -811,7 +811,7 @@ services:
       retries: 3
 
   nim:
-    image: nvcr.io/ea-nvidia-ai/nim:llama-3-8b
+    image: nvcr.io/ea-nvidia-ai/nim:llama-3.1-8b
     ports:
       - "8000:8000"
     deploy:
@@ -958,7 +958,7 @@ spec:
 5. **Model Not Found**
    - Verify model name: `curl http://localhost:8000/v1/models`
    - Check container logs: `docker logs nim-container`
-   - Pull correct image: `docker pull nvcr.io/ea-nvidia-ai/nim:llama-3-8b`
+   - Pull correct image: `docker pull nvcr.io/ea-nvidia-ai/nim:llama-3.1-8b`
 
 6. **Permission Errors**
    - Add user to docker group: `sudo usermod -aG docker $USER`
@@ -967,7 +967,7 @@ spec:
 
 7. **Version Compatibility**
    - Check NIM version: `curl http://localhost:8000/v1/info`
-   - Use specific version: `docker pull nvcr.io/ea-nvidia-ai/nim:llama-3-8b-v1.0.0`
+   - Use specific version: `docker pull nvcr.io/ea-nvidia-ai/nim:llama-3.1-8b-v1.0.0`
 
 ### Debug Commands
 
@@ -1025,7 +1025,7 @@ nvprof --print-gpu-trace python your_script.py
 ```python
 import requests
 
-def chat(prompt: str, model: str = "meta-llama-3-8b-instruct"):
+def chat(prompt: str, model: str = "meta/llama-3.1-8b-instruct"):
     response = requests.post(
         "http://localhost:8000/v1/chat/completions",
         json={
@@ -1044,7 +1044,7 @@ print(chat("What is NVIDIA NIM?"))
 
 ```python
 class Conversation:
-    def __init__(self, model: str = "meta-llama-3-8b-instruct"):
+    def __init__(self, model: str = "meta/llama-3.1-8b-instruct"):
         self.model = model
         self.messages = []
 
@@ -1090,7 +1090,7 @@ print(f"Embedding dimension: {len(embeddings[0])}")
 def stream_chat(prompt: str):
     response = requests.post(
         "http://localhost:8000/v1/chat/completions",
-        json={"model": "meta-llama-3-8b-instruct", "messages": [{"role": "user", "content": prompt}], "stream": True},
+        json={"model": "meta/llama-3.1-8b-instruct", "messages": [{"role": "user", "content": prompt}], "stream": True},
         stream=True
     )
     
@@ -1121,7 +1121,7 @@ def chat_with_system(prompt: str, system: str = ""):
     
     response = requests.post(
         "http://localhost:8000/v1/chat/completions",
-        json={"model": "meta-llama-3-8b-instruct", "messages": messages, "max_tokens": 512}
+        json={"model": "meta/llama-3.1-8b-instruct", "messages": messages, "max_tokens": 512}
     )
     return response.json()["choices"][0]["message"]["content"]
 
@@ -1138,7 +1138,7 @@ def batch_chat(prompts: list, max_workers: int = 8):
     def process(prompt: str):
         response = requests.post(
             "http://localhost:8000/v1/chat/completions",
-            json={"model": "meta-llama-3-8b-instruct", "messages": [{"role": "user", "content": prompt}], "max_tokens": 256}
+            json={"model": "meta/llama-3.1-8b-instruct", "messages": [{"role": "user", "content": prompt}], "max_tokens": 256}
         )
         return response.json()["choices"][0]["message"]["content"]
     
@@ -1198,14 +1198,14 @@ docker run --gpus all -p 8000:8000 my-nim-model
 ```python
 import openai
 client = openai.OpenAI(api_key="key")
-response = client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": "Hi"}], max_tokens=100)
+response = client.chat.completions.create(model="meta/llama-3.1-8b-instruct", messages=[{"role": "user", "content": "Hi"}], max_tokens=100)
 ```
 
 **After:**
 ```python
 import requests
 response = requests.post("http://localhost:8000/v1/chat/completions", json={
-    "model": "meta-llama-3-8b-instruct",
+    "model": "meta/llama-3.1-8b-instruct",
     "messages": [{"role": "user", "content": "Hi"}],
     "max_tokens": 100
 })
@@ -1216,8 +1216,8 @@ response = requests.post("http://localhost:8000/v1/chat/completions", json={
 **Before:**
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
-model = AutoModelForCausalLM.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/meta/llama-3.1-8b-instruct")
+model = AutoModelForCausalLM.from_pretrained("meta-llama/meta/llama-3.1-8b-instruct")
 inputs = tokenizer("Hello", return_tensors="pt")
 outputs = model.generate(**inputs, max_new_tokens=100)
 ```
@@ -1226,7 +1226,7 @@ outputs = model.generate(**inputs, max_new_tokens=100)
 ```python
 import requests
 response = requests.post("http://localhost:8000/v1/chat/completions", json={
-    "model": "meta-llama-3-8b-instruct",
+    "model": "meta/llama-3.1-8b-instruct",
     "messages": [{"role": "user", "content": "Hello"}],
     "max_tokens": 100
 })
@@ -1269,7 +1269,7 @@ response = requests.post("http://localhost:8000/v1/chat/completions", json={
 
 | Model | VRAM | Performance | Use Case |
 |-------|------|-------------|----------|
-| llama-3-8b | 16GB | Fast | General, testing |
+| llama-3.1-8b | 16GB | Fast | General, testing |
 | mistral-7b | 14GB | Fast | Reasoning |
-| llama-3-70b | 140GB | Moderate | Production |
-| mixtral-8x7b | 48GB | Fast | High performance |
+| llama-3.1-70b | 140GB | Moderate | Production |
+| model-specific NIM | See NGC model card | Varies | Pin the NGC image and `/v1/models` ID for production |

@@ -59,24 +59,26 @@ curl https://api.deepseek.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $DEEPSEEK_KEY" \
   -d '{
-    "model": "deepseek-coder",
+    "model": "deepseek-v4-flash",
     "messages": [{"role": "user", "content": "Write a Python function to sort a list"}]
   }'
 ```
 
 ## Models Overview
 
+DeepSeek's official API docs announced that the legacy `deepseek-chat` and `deepseek-reasoner` aliases are scheduled for removal on 2026-07-24. New gateway integrations should target the current V4 model IDs and keep model discovery or configuration outside code.
+
 ### Available Models
 
 | Model | Context Window | Use Case | Price (Input) | Price (Output) | Notes |
 |-------|----------------|----------|---------------|----------------|-------|
 | deepseek-chat | 32,768 | General chat | $0.0000014/tok | $0.0000028/tok | Latest chat model |
-| deepseek-coder | 32,768 | Code generation | $0.0000014/tok | $0.0000028/tok | Specialized for coding |
+| deepseek-v4-flash | 32,768 | Code generation | $0.0000014/tok | $0.0000028/tok | Current non-thinking V4-compatible model; migrate before legacy aliases are removed |
 
 ### Model Comparison
 
 - **deepseek-chat**: Optimized for conversational AI, general knowledge, and reasoning
-- **deepseek-coder**: Fine-tuned for code generation, understanding, and debugging
+- **deepseek-v4-flash**: Fine-tuned for code generation, understanding, and debugging
 
 ## API Endpoints
 
@@ -182,7 +184,7 @@ curl https://api.deepseek.com/v1/chat/completions \
 
 ### 1. Coding Optimization
 
-DeepSeek Coder is specifically fine-tuned for:
+DeepSeek V4 Flash is specifically fine-tuned for:
 - **Code Generation**: Write complete functions, classes, and modules
 - **Code Understanding**: Explain and document code
 - **Code Debugging**: Find and fix bugs
@@ -250,8 +252,8 @@ app.listen(3000);
 ```typescript
 const MODEL_ALIASES: Record<string, string> = {
   'chat': 'deepseek-chat',
-  'coder': 'deepseek-coder',
-  'code': 'deepseek-coder',
+  'coder': 'deepseek-v4-flash',
+  'code': 'deepseek-v4-flash',
   'default': 'deepseek-chat'
 };
 
@@ -327,9 +329,9 @@ app.post('/task/chat', async (req, res) => {
   
   // Select model based on task
   const modelMap: Record<string, string> = {
-    'code': 'deepseek-coder',
-    'coding': 'deepseek-coder',
-    'debug': 'deepseek-coder',
+    'code': 'deepseek-v4-flash',
+    'coding': 'deepseek-v4-flash',
+    'debug': 'deepseek-v4-flash',
     'chat': 'deepseek-chat',
     'general': 'deepseek-chat',
     'reasoning': 'deepseek-chat',
@@ -430,8 +432,8 @@ app.post('/task/chat', async (req, res) => {
 function selectModel(task: string, quality: 'high' | 'standard' = 'standard'): string {
   const modelMap: Record<string, Record<'high' | 'standard', string>> = {
     code: {
-      high: 'deepseek-coder',
-      standard: 'deepseek-coder'
+      high: 'deepseek-v4-flash',
+      standard: 'deepseek-v4-flash'
     },
     chat: {
       high: 'deepseek-chat',
@@ -464,7 +466,7 @@ async function generateCode(prompt: string, language: string = 'python') {
       'Authorization': `Bearer ${DEEPSEEK_KEY}`
     },
     body: JSON.stringify({
-      model: 'deepseek-coder',
+      model: 'deepseek-v4-flash',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: `Write ${language} code for: ${prompt}` }
@@ -501,7 +503,7 @@ ${code}
       'Authorization': `Bearer ${DEEPSEEK_KEY}`
     },
     body: JSON.stringify({
-      model: 'deepseek-coder',
+      model: 'deepseek-v4-flash',
       messages: [
         { role: 'user', content: prompt }
       ],
@@ -541,7 +543,7 @@ Please:
       'Authorization': `Bearer ${DEEPSEEK_KEY}`
     },
     body: JSON.stringify({
-      model: 'deepseek-coder',
+      model: 'deepseek-v4-flash',
       messages: [
         { role: 'user', content: prompt }
       ],
@@ -743,7 +745,7 @@ describe('Code Generation', () => {
         'Authorization': `Bearer ${DEEPSEEK_KEY}`
       },
       body: JSON.stringify({
-        model: 'deepseek-coder',
+        model: 'deepseek-v4-flash',
         messages: [
           {
             role: 'user',
@@ -1053,7 +1055,7 @@ async function complete(prompt: string, model: string = 'deepseek-chat') {
 class DeepSeekCoder {
   private model: string;
   
-  constructor(model: string = 'deepseek-coder') {
+  constructor(model: string = 'deepseek-v4-flash') {
     this.model = model;
   }
   
@@ -1268,7 +1270,7 @@ async function calculateCost(prompt: string, model: string) {
   
   const pricing: Record<string, { input: number; output: number }> = {
     'deepseek-chat': { input: 0.0000014, output: 0.0000028 },
-    'deepseek-coder': { input: 0.0000014, output: 0.0000028 }
+    'deepseek-v4-flash': { input: 0.0000014, output: 0.0000028 }
   };
   
   const rates = pricing[model] || { input: 0.0000014, output: 0.0000028 };

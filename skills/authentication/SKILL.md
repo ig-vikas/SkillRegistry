@@ -47,19 +47,19 @@ Authentication Flow
 
 | Component | Purpose | Technology |
 |-----------|---------|------------|
-| TokenService | JWT generation, validation, rotation | jsonwebtoken, jose |
+| TokenService | JWT generation, validation, rotation | jose |
 | PairingService | Device pairing with codes | Crypto, QR code |
 | SessionService | Session lifecycle management | Redis, SQLite |
 | AuthMiddleware | Request authentication | Express middleware |
 | RateLimiter | Prevent brute force attacks | rate-limiter-flexible |
-| MFAService | Multi-factor auth | speakeasy, webauthn |
+| MFAService | Multi-factor auth | otplib, SimpleWebAuthn |
 
 ## Quick Start
 
 ```bash
 # Install dependencies
-pnpm add jsonwebtoken jose @panva/jose speakeasy qrcode
-pnpm add -D @types/jsonwebtoken @types/qrcode
+pnpm add jose otplib qrcode @simplewebauthn/server
+pnpm add -D @types/qrcode
 ```
 
 ## Configuration Schema
@@ -174,7 +174,7 @@ export const DefaultAuthConfig: AuthConfig = {
 ```typescript
 // src/auth/token-service.ts
 import { jwtVerify, SignJWT, JWTPayload } from 'jose';
-import { createHash, randomBytes } from 'crypto';
+import { createHash, randomBytes, randomInt } from 'crypto';
 import { AuthConfig } from './config';
 
 interface TokenPayload extends JWTPayload {
@@ -360,7 +360,7 @@ export class TokenService {
   private generateRandomCode(length: number, chars: string): string {
     let result = '';
     for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
+      result += chars.charAt(randomInt(0, chars.length));
     }
     return result;
   }
@@ -1033,8 +1033,9 @@ export class AuthRateLimiter {
 ```typescript
 // src/auth/mfa-service.ts
 import { AuthConfig } from './config';
-import { createHash, randomBytes } from 'crypto';
-import speakeasy from 'speakeasy';
+import { createHash, randomBytes, randomInt } from 'crypto';
+import { authenticator } from 'otplib';
+import QRCode from 'qrcode';
 
 interface TOTPSecret {
   secret: string;
@@ -1082,29 +1083,21 @@ export class MFAService {
 
   // Generate TOTP secret
   async generateTOTPSecret(userId: string, userEmail: string, issuer: string = 'AgentGateway'): Promise<TOTPSecret> {
-    const secret = speakeasy.generateSecret({
-      name: `${issuer}:${userEmail}`,
-      issuer,
-      length: 20,
-    });
+    const secret = authenticator.generateSecret();
+    const otpauthUrl = authenticator.keyuri(userEmail, issuer, secret);
     
-    const qrCode = await QRCode.toDataURL(secret.otpauth_url);
+    const qrCode = await QRCode.toDataURL(otpauthUrl);
     
     return {
-      secret: secret.base32,
-      otpauthUrl: secret.otpauth_url,
+      secret,
+      otpauthUrl,
       qrCode,
     };
   }
 
   // Verify TOTP code
   verifyTOTPCode(secret: string, code: string, window: number = 1): boolean {
-    return speakeasy.totp.verify({
-      secret,
-      encoding: 'base32',
-      code,
-      window,
-    });
+    return authenticator.clone({ window }).check(code, secret);
   }
 
   // Generate backup codes
@@ -1119,7 +1112,7 @@ export class MFAService {
       do {
         code = '';
         for (let j = 0; j < length; j++) {
-          code += chars.charAt(Math.floor(Math.random() * chars.length));
+          code += chars.charAt(randomInt(0, chars.length));
         }
       } while (usedCodes.has(code) || code.length !== length);
       
@@ -2046,7 +2039,7 @@ describe('AuthService', () => {
 
 - [JSON Web Tokens (JWT)](https://jwt.io/) - JWT specification and libraries
 - [jose](https://github.com/panva/jose) - JWT, JWS, JWE implementation for Node.js
-- [Speakeasy](https://github.com/speakeasyjs/speakeasy) - TOTP generation and verification
+- [Otplib](https://github.com/yeojz/otplib) - TOTP generation and verification
 - [WebAuthn](https://webauthn.io/) - FIDO2/WebAuthn specification
 - [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html) - Security best practices
 - [Rate Limiter Flexible](https://github.com/animir/node-rate-limiter-flexible) - Rate limiting library

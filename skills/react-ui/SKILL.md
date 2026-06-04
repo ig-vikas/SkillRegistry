@@ -453,7 +453,7 @@ export function formatDate(date: Date | string): string { return new Date(date).
 export function truncate(text: string, length: number): string { 
   return text.length <= length ? text : text.substring(0, length) + '...'; 
 }
-export function generateId(): string { return Date.now() + Math.random().toString(36).substring(2, 9); }
+export function generateId(): string { return crypto.randomUUID(); }
 ```
 
 ## Testing
@@ -486,7 +486,7 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
   "private": true,
   "scripts": { "dev": "vite", "build": "tsc && vite build", "test": "vitest" },
   "dependencies": {
-    "react": "^18.2.0", "react-dom": "^18.2.0",
+    "react": "^19.2.0", "react-dom": "^19.2.0",
     "@tanstack/react-router": "^1.0.0", "@tanstack/react-query": "^5.0.0",
     "zustand": "^4.4.7", "socket.io-client": "^4.7.2",
     "lucide-react": "^0.294.0", "recharts": "^2.10.3",
@@ -494,9 +494,9 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
     "@radix-ui/react-toast": "^1.1.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.42", "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1", "typescript": "^5.3.3",
-    "vite": "^5.0.8", "tailwindcss": "^3.3.6", "postcss": "^8.4.32",
+    "@types/react": "^19.2.0", "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.0", "typescript": "^5.9.0",
+    "vite": "^7.0.0", "tailwindcss": "^4.0.0", "postcss": "^8.5.0",
     "autoprefixer": "^10.4.16", "@types/node": "^20.10.6",
     "tailwindcss-animate": "^1.0.7", "vite-tsconfig-paths": "^4.2.1",
     "clsx": "^2.0.0", "tailwind-merge": "^2.2.0",
@@ -522,6 +522,14 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
+
+## Resources
+
+- [React Docs](https://react.dev/) - Current React 19 documentation and API reference.
+- [React Versions](https://react.dev/versions) - Official React release history and current version information.
+- [Vite Guide](https://vite.dev/guide/) - Current Vite setup and Node.js support requirements.
+- [TanStack Query Docs](https://tanstack.com/query/latest) - Server-state fetching and caching patterns.
+- [Radix UI Docs](https://www.radix-ui.com/primitives/docs/overview/introduction) - Accessible unstyled component primitives.
 
 ## Principles
 

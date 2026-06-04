@@ -2,7 +2,7 @@
 name: openrouter-proxy
 type: skill
 version: 1.0.0
-description: OpenRouter API expert - access 200+ models with unified API, routing, and advanced features like model ranking and custom endpoints.
+description: OpenRouter API expert - access 400+ models with a unified API, dynamic model discovery, provider routing, fallbacks, and app attribution headers.
 author: skillregistry
 license: MIT
 agents:
@@ -27,7 +27,7 @@ tags:
 
 # OpenRouter Proxy Expert
 
-Master the OpenRouter API to access 200+ LLMs from various providers through a single, unified interface. Understand routing, model aliases, ranking, and advanced features like site URLs and app tracking.
+Master the OpenRouter API to access hundreds of LLMs from multiple providers through a single, OpenAI-compatible interface. Treat model availability, pricing, context length, and supported parameters as dynamic metadata from `/api/v1/models`, then pin explicit model IDs for reproducibility or use documented latest-family aliases for flexible routing.
 
 ## Quick Start
 
@@ -43,7 +43,7 @@ const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     'Authorization': `Bearer ${process.env.OPENROUTER_KEY}`
   },
   body: JSON.stringify({
-    model: 'openai/gpt-4o',
+    model: '~openai/gpt-latest',
     messages: [{ role: 'user', content: 'Hello!' }]
   })
 });
@@ -59,7 +59,7 @@ curl https://openrouter.ai/api/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENROUTER_KEY" \
   -d '{
-    "model": "anthropic/claude-3-sonnet",
+    "model": "~anthropic/claude-sonnet-latest",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
@@ -70,30 +70,27 @@ curl https://openrouter.ai/api/v1/chat/completions \
 
 | Category | Examples | Provider | Notes |
 |----------|----------|----------|-------|
-| OpenAI | gpt-4o, gpt-3.5-turbo | OpenAI | Official OpenAI models |
-| Anthropic | claude-3-sonnet, claude-3-haiku | Anthropic | Claude models |
-| Google | gemini-1.5-pro, gemini-1.5-flash | Google | Gemini models |
-| Meta | llama-3-70b, llama-3-8b | Meta | Llama models |
-| Mistral | mistral-large, mixtral-8x7b | Mistral | Mistral models |
-| Cohere | command-r, command-r-plus | Cohere | Cohere models |
-| Groq | llama-3-8b-groq, mixtral-8x7b-groq | Groq | Groq-optimized |
-| Fireworks | llama-v3-70b, mixtral-8x7b | Fireworks | Fireworks models |
-| DeepSeek | deepseek-chat, deepseek-coder | DeepSeek | DeepSeek models |
-| NVIDIA | llms-3-70b, llms-2-70b | NVIDIA | NVIDIA models |
+| OpenAI | `openai/gpt-5`, `~openai/gpt-latest` | OpenAI | Official OpenAI models and latest-family aliases |
+| Anthropic | `anthropic/claude-sonnet-4`, `~anthropic/claude-sonnet-latest` | Anthropic | Claude models and latest-family aliases |
+| Google | `google/gemini-2.5-pro`, `google/gemini-2.5-flash` | Google | Gemini models |
+| Meta | `meta-llama/*` | Meta and hosted providers | Llama family, provider availability varies |
+| Mistral | `mistralai/*` | Mistral and hosted providers | Mistral family |
+| DeepSeek | `deepseek/*` | DeepSeek and hosted providers | DeepSeek chat/reasoning models |
+| NVIDIA | Provider-specific slugs from `/models` | NVIDIA | NIM-backed availability changes over time |
 
 ### Popular Models
 
-#### Top-Tier Models
-- `openai/gpt-4o` - Latest OpenAI
-- `anthropic/claude-3-opus` - Most capable
-- `google/gemini-1.5-pro` - Best Google
-- `meta/llama-3-70b` - Best open-source
+#### Production Model Selection
+- Use `/api/v1/models` to read `id`, `context_length`, `pricing`, `top_provider`, and `supported_parameters`.
+- Prefer pinned IDs for deterministic tests, audits, and regulated workflows.
+- Use aliases such as `~openai/gpt-latest` and `~anthropic/claude-sonnet-latest` only when automatic upgrades are acceptable.
+- Use the `models` fallback array and provider routing options for uptime, cost, and latency policy.
 
 #### Cost-Effective Models
-- `openai/gpt-4o-mini` - Cheap GPT-4
+- `openai/gpt-5-mini` - Cost-efficient GPT-5 family
 - `anthropic/claude-3-haiku` - Fast Claude
-- `google/gemini-1.5-flash` - Fast Google
-- `groq/llama-3-8b` - Very cheap & fast
+- `google/gemini-2.5-flash` - Fast Gemini
+- Query `/api/v1/models` for current low-cost provider-hosted options.
 
 ## API Endpoints
 
@@ -118,7 +115,7 @@ curl https://openrouter.ai/api/v1/chat/completions \
 
 ```json
 {
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello!"}
@@ -155,7 +152,7 @@ curl https://openrouter.ai/api/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion",
   "created": 1717000000,
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "choices": [
     {
       "index": 0,
@@ -181,7 +178,7 @@ curl https://openrouter.ai/api/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion.chunk",
   "created": 1717000000,
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "choices": [
     {
       "index": 0,
@@ -200,7 +197,7 @@ Use provider-specific model names:
 
 ```json
 {
-  "model": "claude-3-sonnet", // Same as anthropic/claude-3-sonnet
+  "model": "claude-sonnet-latest", // Same as ~anthropic/claude-sonnet-latest
   "messages": [...]
 }
 ```
@@ -224,7 +221,7 @@ Identify your application:
 ```json
 {
   "app_name": "MyApp/1.0",
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "messages": [...]
 }
 ```
@@ -254,7 +251,7 @@ Set custom API endpoint:
 {
   "site_url": "https://my-custom-openrouter.example.com",
   "site_name": "My Custom Instance",
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "messages": [...]
 }
 ```
@@ -265,7 +262,7 @@ Pass through provider headers:
 
 ```json
 {
-  "model": "anthropic/claude-3-sonnet",
+  "model": "~anthropic/claude-sonnet-latest",
   "messages": [...],
   "provider": {
     "anthropic": {
@@ -323,11 +320,11 @@ app.post('/:provider/chat', async (req, res) => {
   
   // Map provider to OpenRouter model
   const modelMap: Record<string, string> = {
-    anthropic: 'anthropic/claude-3-sonnet',
-    gemini: 'google/gemini-1.5-pro',
-    openai: 'openai/gpt-4o',
+    anthropic: '~anthropic/claude-sonnet-latest',
+    gemini: 'google/gemini-2.5-pro',
+    openai: 'openai/gpt-5',
     mistral: 'mistral/mistral-large',
-    groq: 'groq/llama-3-8b',
+    groq: 'meta-llama/llama-3.3-70b-instruct',
     deepseek: 'deepseek/deepseek-chat'
   };
   
@@ -398,9 +395,9 @@ app.post('/stream', async (req, res) => {
 // Round-robin load balancing across models
 let modelIndex = 0;
 const models = [
-  'anthropic/claude-3-sonnet',
-  'google/gemini-1.5-pro',
-  'openai/gpt-4o-mini'
+  '~anthropic/claude-sonnet-latest',
+  'google/gemini-2.5-pro',
+  'openai/gpt-5-mini'
 ];
 
 app.post('/balanced/chat', async (req, res) => {
@@ -513,23 +510,23 @@ app.post('/balanced/chat', async (req, res) => {
 function selectModel(task: string, budget: 'low' | 'medium' | 'high'): string {
   const modelMap: Record<string, Record<'low' | 'medium' | 'high', string>> = {
     chat: {
-      low: 'groq/llama-3-8b',
+      low: 'meta-llama/llama-3.3-70b-instruct',
       medium: 'anthropic/claude-3-haiku',
-      high: 'openai/gpt-4o'
+      high: 'openai/gpt-5'
     },
     coding: {
-      low: 'groq/mixtral-8x7b',
-      medium: 'anthropic/claude-3-sonnet',
-      high: 'openai/gpt-4o'
+      low: 'meta-llama/llama-3.3-70b-instruct',
+      medium: '~anthropic/claude-sonnet-latest',
+      high: 'openai/gpt-5'
     },
     reasoning: {
-      low: 'meta/llama-3-8b',
-      medium: 'google/gemini-1.5-pro',
-      high: 'anthropic/claude-3-opus'
+      low: 'meta-llama/llama-3.3-70b-instruct',
+      medium: 'google/gemini-2.5-pro',
+      high: 'anthropic/claude-opus-4'
     }
   };
   
-  return modelMap[task]?.[budget] || 'anthropic/claude-3-sonnet';
+  return modelMap[task]?.[budget] || '~anthropic/claude-sonnet-latest';
 }
 ```
 
@@ -660,10 +657,10 @@ function trackTokens(model: string, usage: any) {
 // Calculate cost
 function calculateCost(model: string, tokens: { input: number; output: number }) {
   const pricing: Record<string, { input: number; output: number }> = {
-    'openai/gpt-4o': { input: 0.00005, output: 0.00015 },
-    'anthropic/claude-3-sonnet': { input: 0.00003, output: 0.00015 },
-    'google/gemini-1.5-pro': { input: 0.000025, output: 0.0001 },
-    'groq/llama-3-8b': { input: 0.0000005, output: 0.0000008 }
+    'openai/gpt-5': { input: 0.00005, output: 0.00015 },
+    '~anthropic/claude-sonnet-latest': { input: 0.00003, output: 0.00015 },
+    'google/gemini-2.5-pro': { input: 0.000025, output: 0.0001 },
+    'meta-llama/llama-3.3-70b-instruct': { input: 0.0000005, output: 0.0000008 }
   };
   
   const rates = pricing[model] || { input: 0, output: 0 };
@@ -787,7 +784,7 @@ describe('OpenRouter Proxy', () => {
         id: 'chatcmpl-123',
         object: 'chat.completion',
         created: 1717000000,
-        model: 'anthropic/claude-3-sonnet',
+        model: '~anthropic/claude-sonnet-latest',
         choices: [{
           index: 0,
           message: { role: 'assistant', content: 'Hello!' },
@@ -804,7 +801,7 @@ describe('OpenRouter Proxy', () => {
         'Authorization': 'Bearer test-key'
       },
       body: JSON.stringify({
-        model: 'anthropic/claude-3-sonnet',
+        model: '~anthropic/claude-sonnet-latest',
         messages: [{ role: 'user', content: 'Hi' }]
       })
     });
@@ -828,14 +825,14 @@ describe('OpenRouter Proxy Integration', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'anthropic/claude-3-sonnet',
+        model: '~anthropic/claude-sonnet-latest',
         messages: [{ role: 'user', content: 'Test' }]
       })
     });
     
     expect(response.status).toBe(200);
     const data = await response.json();
-    expect(data.model).toBe('anthropic/claude-3-sonnet');
+    expect(data.model).toBe('~anthropic/claude-sonnet-latest');
   });
 });
 ```
@@ -871,8 +868,8 @@ services:
       - "3000:3000"
     environment:
       - OPENROUTER_KEY=${OPENROUTER_KEY}
-      - PRIMARY_MODEL=anthropic/claude-3-sonnet
-      - FALLBACK_MODELS=google/gemini-1.5-pro,openai/gpt-4o-mini
+      - PRIMARY_MODEL=~anthropic/claude-sonnet-latest
+      - FALLBACK_MODELS=google/gemini-2.5-pro,openai/gpt-5-mini
     restart: unless-stopped
 
   rate-limiter:
@@ -889,8 +886,8 @@ OPENROUTER_KEY=sk-or-v1-...
 
 # Optional
 OPENROUTER_URL=https://openrouter.ai/api/v1
-PRIMARY_MODEL=anthropic/claude-3-sonnet
-FALLBACK_MODELS=google/gemini-1.5-pro,openai/gpt-4o-mini
+PRIMARY_MODEL=~anthropic/claude-sonnet-latest
+FALLBACK_MODELS=google/gemini-2.5-pro,openai/gpt-5-mini
 SITE_URL=
 SITE_NAME=
 APP_NAME=MyApp/1.0
@@ -1016,7 +1013,7 @@ app.use((req, res, next) => {
 3. **Model Not Available**
    - Check if model exists: GET `/v1/models`
    - Verify model ID is correct
-   - Try with provider prefix (e.g., `anthropic/claude-3-sonnet`)
+   - Try with provider prefix (e.g., `~anthropic/claude-sonnet-latest`)
 
 4. **Rate Limit Exceeded**
    - Implement retry with backoff
@@ -1107,7 +1104,7 @@ global.fetch = async (url: string, options: any) => {
 ### 1. Basic Completion
 
 ```typescript
-async function complete(prompt: string, model: string = 'anthropic/claude-3-sonnet') {
+async function complete(prompt: string, model: string = '~anthropic/claude-sonnet-latest') {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -1129,9 +1126,9 @@ async function complete(prompt: string, model: string = 'anthropic/claude-3-sonn
 
 ```typescript
 const PROVIDER_MODELS: Record<string, string> = {
-  anthropic: 'anthropic/claude-3-sonnet',
-  google: 'google/gemini-1.5-pro',
-  openai: 'openai/gpt-4o-mini',
+  anthropic: '~anthropic/claude-sonnet-latest',
+  google: 'google/gemini-2.5-pro',
+  openai: 'openai/gpt-5-mini',
   mistral: 'mistral/mistral-large'
 };
 
@@ -1203,7 +1200,7 @@ async function* streamComplete(prompt: string, model: string) {
 }
 
 // Usage
-for await (const chunk of streamComplete('Tell me a story', 'anthropic/claude-3-sonnet')) {
+for await (const chunk of streamComplete('Tell me a story', '~anthropic/claude-sonnet-latest')) {
   process.stdout.write(chunk);
 }
 ```
@@ -1305,7 +1302,7 @@ class OpenRouterConversation {
   private messages: any[] = [];
   private model: string;
   
-  constructor(model: string = 'anthropic/claude-3-sonnet') {
+  constructor(model: string = '~anthropic/claude-sonnet-latest') {
     this.model = model;
   }
   

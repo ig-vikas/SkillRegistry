@@ -128,6 +128,7 @@ Tool Call Request
 ```typescript
 // src/services/tools/approval.ts
 import { EventEmitter } from 'events';
+import { randomUUID } from 'crypto';
 
 interface ApprovalRequest {
   id: string;
@@ -160,7 +161,7 @@ export class ApprovalManager extends EventEmitter {
   }
   
   // Check if tool requires approval
-  requiresApproval(tool: string, userId: string): boolean {
+  requiresApproval(tool: string, userId: string, args: unknown = {}): boolean {
     // Get effective mode for this tool
     const mode = this.getEffectiveMode(tool);
     
@@ -198,9 +199,10 @@ export class ApprovalManager extends EventEmitter {
     }
     
     // Auto-approve patterns
-    if (this.config.approval.autoApprovePatterns.length > 0) {
-      const argsStr = JSON.stringify(message.arguments || {});
-      for (const pattern of this.config.approval.autoApprovePatterns) {
+    const autoApprovePatterns = this.config.approval.autoApprovePatterns ?? [];
+    if (autoApprovePatterns.length > 0) {
+      const argsStr = JSON.stringify(args ?? {});
+      for (const pattern of autoApprovePatterns) {
         if (argsStr.includes(pattern)) {
           return false;
         }
@@ -334,7 +336,7 @@ export class ApprovalManager extends EventEmitter {
   }
   
   private generateRequestId(): string {
-    return `approval_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+    return `approval_${randomUUID()}`;
   }
   
   // Add owner
@@ -683,7 +685,7 @@ export class ToolWrapper {
     const { tool, args, userId, channelId, messageId } = context;
     
     // Check if approval is required
-    if (this.approvalManager.requiresApproval(tool, userId)) {
+    if (this.approvalManager.requiresApproval(tool, userId, args)) {
       // Request approval
       const response = await this.approvalManager.requestApproval(
         tool, args, userId, channelId, messageId
@@ -765,14 +767,11 @@ export class ToolWrapper {
   }
   
   private async executeCron(args: any, userId: string): Promise<ToolResult> {
-    // Implement cron job scheduling
-    // This would typically use a library like 'node-cron'
-    return { success: false, error: 'Cron execution not yet implemented' };
+    return { success: false, error: 'Cron execution must be delegated to the cron-scheduling skill after approval.' };
   }
   
   private async executeBrowser(args: any, userId: string): Promise<ToolResult> {
-    // Implement browser control via Chrome CDP
-    return { success: false, error: 'Browser execution not yet implemented' };
+    return { success: false, error: 'Browser execution must be delegated to the browser-control skill after approval.' };
   }
   
   private async executeCanvas(args: any, userId: string): Promise<ToolResult> {
@@ -781,13 +780,11 @@ export class ToolWrapper {
   }
   
   private async executeImage(args: any, userId: string): Promise<ToolResult> {
-    // Image generation with Sharp
-    return { success: false, error: 'Image generation not yet implemented' };
+    return { success: false, error: 'Image generation must be delegated to the image-generation skill after approval.' };
   }
   
   private async executeFile(args: any, userId: string): Promise<ToolResult> {
-    // File read/write operations
-    return { success: false, error: 'File operations not yet implemented' };
+    return { success: false, error: 'File operations must be delegated to the file-system skill after approval.' };
   }
 }
 ```

@@ -593,14 +593,14 @@ export const EnhancedFullConfigSchema = FullConfigSchema
   },
   "defaultAgent": {
     "provider": "openai",
-    "model": "gpt-4o-mini",
+    "model": "gpt-5-mini",
     "systemPrompt": "You are a helpful AI assistant in development mode."
   },
   "providers": {
     "openai": {
       "type": "openai",
       "apiKey": "${OPENAI_API_KEY}",
-      "model": "gpt-4o-mini",
+      "model": "gpt-5-mini",
       "timeout": 120000
     }
   },
@@ -682,7 +682,7 @@ export const EnhancedFullConfigSchema = FullConfigSchema
   },
   "defaultAgent": {
     "provider": "anthropic",
-    "model": "claude-3-5-sonnet-20241022",
+    "model": "claude-sonnet-4-20250514",
     "systemPrompt": "You are a helpful AI assistant. Always ask for approval before executing dangerous tools. Be cautious and verify information.",
     "maxTokens": 4096,
     "temperature": 0.7
@@ -691,21 +691,21 @@ export const EnhancedFullConfigSchema = FullConfigSchema
     "anthropic": {
       "type": "anthropic",
       "apiKey": "${ANTHROPIC_API_KEY}",
-      "model": "claude-3-5-sonnet-20241022",
+      "model": "claude-sonnet-4-20250514",
       "timeout": 120000,
       "maxTokens": 4096
     },
     "openai": {
       "type": "openai",
       "apiKey": "${OPENAI_API_KEY}",
-      "model": "gpt-4o",
+      "model": "gpt-5.2",
       "timeout": 120000,
       "maxTokens": 4096
     },
     "local": {
       "type": "local",
       "baseUrl": "http://localhost:1234/v1",
-      "model": "llama-3-8b-instruct",
+      "model": "local-model",
       "timeout": 300000,
       "maxTokens": 4096
     }
@@ -1029,7 +1029,7 @@ describe('Configuration Schema', () => {
     const config = FullConfigSchema.parse({
       gateway: { port: 3000 },
       security: { mode: 'owner-only' },
-      providers: { openai: { type: 'openai', model: 'gpt-4o' } },
+      providers: { openai: { type: 'openai', model: 'gpt-5.2' } },
     });
     
     expect(config.gateway.port).toBe(3000);
@@ -1186,7 +1186,7 @@ describe('ConfigLoader', () => {
     "openai": {
       "type": "openai",
       "apiKey": "${OPENAI_API_KEY}",
-      "model": "gpt-4o",
+      "model": "gpt-5.2",
       "timeout": 60000,
       "maxTokens": 4096
     }
@@ -1194,7 +1194,7 @@ describe('ConfigLoader', () => {
   
   "defaultAgent": {
     "provider": "openai",
-    "model": "gpt-4o",
+    "model": "gpt-5.2",
     "systemPrompt": "You are a helpful AI assistant."
   },
   

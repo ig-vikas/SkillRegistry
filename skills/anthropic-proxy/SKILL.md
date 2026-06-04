@@ -2,7 +2,7 @@
 name: anthropic-proxy
 type: skill
 version: 1.0.0
-description: Anthropic Claude API expert - master requests, responses, streaming, and best practices for Claude 3 and Claude 2 models.
+description: Anthropic Claude API expert - master Messages API requests, responses, streaming, tool use, prompt caching, and current Claude 4-family model practices.
 author: skillregistry
 license: MIT
 agents:
@@ -20,15 +20,15 @@ tags:
   - api
   - anthropic
   - claude
-  - claude-3
-  - claude-2
+  - claude-4
+  - messages-api
   - llm
   - proxy
 ---
 
 # Anthropic Proxy Expert
 
-Master the Anthropic API for Claude models, including request formatting, response handling, streaming, and advanced features like tools and HDR (High Definition Reasoning).
+Master the Anthropic API for Claude models, including request formatting, response handling, streaming, tool use, prompt caching, extended thinking where supported, and safe proxy behavior.
 
 ## Quick Start
 
@@ -52,7 +52,7 @@ const anthropic = new Anthropic({
 });
 
 const response = await anthropic.messages.create({
-  model: 'claude-3-sonnet-20240229',
+  model: 'claude-sonnet-4-20250514',
   max_tokens: 1024,
   messages
 });
@@ -68,7 +68,7 @@ curl https://api.anthropic.com/v1/messages \
   -H "Content-Type: application/json" \
   -H "anthropic-version: 2023-06-01" \
   -d '{
-    "model": "claude-3-sonnet-20240229",
+    "model": "claude-sonnet-4-20250514",
     "max_tokens": 1024,
     "messages": [
       {"role": "user", "content": "Hello, Claude!"}
@@ -78,29 +78,17 @@ curl https://api.anthropic.com/v1/messages \
 
 ## Models Overview
 
-### Claude 3 Models
+### Current Claude Models
 
 | Model | Max Tokens | Context Window | Use Case | Price (Input) | Price (Output) |
 |-------|------------|----------------|----------|---------------|----------------|
-| claude-3-5-sonnet-20241022 | 200,000 | 200K | General, balanced | $3/1M | $15/1M |
-| claude-3-opus-20240229 | 200,000 | 200K | Most intelligent | $15/1M | $75/1M |
-| claude-3-sonnet-20240229 | 200,000 | 200K | Fast, cost-effective | $3/1M | $15/1M |
-| claude-3-haiku-20240307 | 200,000 | 200K | Fastest, simple tasks | $0.25/1M | $1.25/1M |
+| claude-opus-4-1-20250805 | 200,000 | 200K | Highest-capability reasoning and coding | $15/1M | $75/1M |
+| claude-opus-4-20250514 | 200,000 | 200K | High-capability reasoning and coding | $15/1M | $75/1M |
+| claude-sonnet-4-20250514 | 200,000 | 200K | Balanced production default | $3/1M | $15/1M |
+| claude-3-7-sonnet-20250219 | 200,000 | 200K | Prior Sonnet generation with strong reasoning | $3/1M | $15/1M |
+| claude-3-5-haiku-20241022 | 200,000 | 200K | Low-latency, lower-cost tasks | $0.80/1M | $4/1M |
 
-### Claude 2 Models
-
-| Model | Max Tokens | Context Window | Notes |
-|-------|------------|----------------|-------|
-| claude-2.1 | 200,000 | 200K | Improved over 2.0 |
-| claude-2.0 | 100,000 | 100K | Original Claude 2 |
-| claude-instant-1.2 | 100,000 | 100K | Fast, lower cost |
-
-### Legacy Models (Deprecated)
-
-- claude-1.3
-- claude-1.2
-- claude-1.1
-- claude-1.0
+Older Claude 2 and Claude 3 Opus/Sonnet variants should be treated as migration targets only. Check Anthropic's model and pricing pages before pinning a model in production because deprecations and regional availability change.
 
 ## API Endpoints
 
@@ -111,8 +99,7 @@ curl https://api.anthropic.com/v1/messages \
 - **Rate Limit**: 100 requests per minute (varies by model)
 
 ### Legacy Text Completions API
-- **URL**: `https://api.anthropic.com/v1/completions`
-- **Method**: POST
+- **Status**: Avoid for new work. Use the Messages API unless maintaining a legacy integration.
 - **Status**: Deprecated, use Messages API
 
 ## Request Parameters
@@ -121,7 +108,7 @@ curl https://api.anthropic.com/v1/messages \
 
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "messages": [
     {
@@ -225,7 +212,7 @@ interface MessageCreateParams {
       "text": "Hello! I'm Claude, and I'm here to help you."
     }
   ],
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {
@@ -265,7 +252,7 @@ interface MessageCreateParams {
 
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "system": "You are a helpful assistant that always responds in JSON format.",
   "messages": [
@@ -280,7 +267,7 @@ interface MessageCreateParams {
 
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "tools": [
     {
@@ -322,21 +309,25 @@ interface MessageCreateParams {
       "input": {"location": "San Francisco, CA"}
     }
   ],
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "stop_reason": "tool_use",
   "stop_sequence": null,
   "usage": {"input_tokens": 25, "output_tokens": 15}
 }
 ```
 
-### 3. HDR (High Definition Reasoning)
+### 3. Extended Thinking
 
-Claude 3 Opus supports HDR for complex reasoning:
+Claude 4-family and Sonnet 3.7 models support extended thinking controls for difficult reasoning tasks. Budget thinking tokens deliberately and include them in cost and latency planning:
 
 ```json
 {
-  "model": "claude-3-opus-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 4096,
+  "thinking": {
+    "type": "enabled",
+    "budget_tokens": 16000
+  },
   "messages": [
     {
       "role": "user",
@@ -346,16 +337,13 @@ Claude 3 Opus supports HDR for complex reasoning:
 }
 ```
 
-HDR automatically handles:
-- Longer reasoning chains
-- Better planning and reflection
-- More accurate responses for complex queries
+Extended thinking changes token accounting and cache behavior. When using prompt caching, track `cache_creation_input_tokens`, `cache_read_input_tokens`, `input_tokens`, and `output_tokens` separately.
 
 ### 4. Web Search (Beta)
 
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "web_search": {
     "enabled": true
@@ -372,7 +360,7 @@ Claude 3 supports vision:
 
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "messages": [
     {
@@ -401,7 +389,7 @@ Claude 3 supports vision:
 import { Anthropic } from '@anthropic-ai/sdk';
 
 const stream = await anthropic.messages.createStream({
-  model: 'claude-3-sonnet-20240229',
+  model: 'claude-sonnet-4-20250514',
   max_tokens: 1024,
   messages: [{ role: 'user', content: 'Tell me a story' }]
 });
@@ -579,7 +567,7 @@ Convert OpenAI format to Anthropic:
 function openAIToAnthropic(openAIRequest: any): any {
   return {
     anthropic_version: '2023-06-01',
-    model: openAIRequest.model || 'claude-3-sonnet-20240229',
+    model: openAIRequest.model || 'claude-sonnet-4-20250514',
     max_tokens: openAIRequest.max_tokens || 4096,
     ...(openAIRequest.system && { system: openAIRequest.system }),
     messages: openAIRequest.messages.map((m: any) => ({
@@ -814,14 +802,14 @@ describe('Anthropic Proxy', () => {
         type: 'message',
         role: 'assistant',
         content: [{ type: 'text', text: 'Hello!' }],
-        model: 'claude-3-sonnet-20240229',
+        model: 'claude-sonnet-4-20250514',
         stop_reason: 'end_turn',
         usage: { input_tokens: 10, output_tokens: 5 }
       })
     }));
     
     const response = await anthropic.messages.create({
-      model: 'claude-3-sonnet-20240229',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 100,
       messages: [{ role: 'user', content: 'Hi' }]
     });
@@ -852,7 +840,7 @@ describe('Anthropic Proxy Integration', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-3-sonnet-20240229',
+        model: 'claude-sonnet-4-20250514',
         max_tokens: 100,
         messages: [{ role: 'user', content: 'Test' }]
       })
@@ -1068,7 +1056,7 @@ const anthropic = new Anthropic({
 | Context Window | ✅ 200K | ✅ 128K | ✅ 128K | ✅ 32K |
 | Streaming | ✅ SSE | ✅ SSE | ✅ SSE | ✅ SSE |
 | Web Search | ✅ Beta | ❌ No | ❌ No | ❌ No |
-| HDR Reasoning | ✅ Opus | ❌ No | ❌ No | ❌ No |
+| Extended Thinking | Claude 4 / Sonnet 3.7 where enabled | Model-dependent | Model-dependent | No |
 
 ## Principles
 
@@ -1108,7 +1096,7 @@ async function chat(model: string, prompt: string) {
 }
 
 // Usage
-const reply = await chat('claude-3-sonnet-20240229', 'Tell me a joke');
+const reply = await chat('claude-sonnet-4-20250514', 'Tell me a joke');
 console.log(reply);
 ```
 
@@ -1118,7 +1106,7 @@ console.log(reply);
 class Conversation {
   private messages: MessageParam[] = [];
   
-  async send(prompt: string, model: string = 'claude-3-sonnet-20240229') {
+  async send(prompt: string, model: string = 'claude-sonnet-4-20250514') {
     this.messages.push({ role: 'user', content: prompt });
     
     const response = await anthropic.messages.create({
@@ -1154,7 +1142,7 @@ console.log(reply2); // Claude will remember the previous message
 ```typescript
 async function chatWithSystem(prompt: string, system: string) {
   const response = await anthropic.messages.create({
-    model: 'claude-3-sonnet-20240229',
+    model: 'claude-sonnet-4-20250514',
     max_tokens: 4096,
     system,
     messages: [
@@ -1182,7 +1170,7 @@ async function describeImage(imagePath: string) {
   const imageData = fs.readFileSync(imagePath, 'base64');
   
   const response = await anthropic.messages.create({
-    model: 'claude-3-sonnet-20240229',
+    model: 'claude-sonnet-4-20250514',
     max_tokens: 4096,
     messages: [
       {
@@ -1215,7 +1203,7 @@ console.log(description);
 ```typescript
 async function streamChat(prompt: string) {
   const stream = await anthropic.messages.createStream({
-    model: 'claude-3-sonnet-20240229',
+    model: 'claude-sonnet-4-20250514',
     max_tokens: 4096,
     messages: [
       { role: 'user', content: prompt }
@@ -1242,7 +1230,7 @@ await streamChat('Tell me a long story');
 ```typescript
 async function useTools(prompt: string) {
   const response = await anthropic.messages.create({
-    model: 'claude-3-sonnet-20240229',
+    model: 'claude-sonnet-4-20250514',
     max_tokens: 4096,
     tools: [
       {
@@ -1300,9 +1288,9 @@ console.log(replies);
 
 ## Migration Guide
 
-### From Claude 2 to Claude 3
+### From Legacy Completions to Messages API
 
-**Claude 2:**
+**Legacy completions-style prompt:**
 ```json
 {
   "prompt": "\n\nHuman: Hello\n\nAssistant:",
@@ -1313,7 +1301,7 @@ console.log(replies);
 **Claude 3:**
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "messages": [
     {"role": "user", "content": "Hello"}
@@ -1334,7 +1322,7 @@ console.log(replies);
 **New (Messages):**
 ```json
 {
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "max_tokens": 1024,
   "messages": [
     {"role": "user", "content": "Hello"}
@@ -1354,10 +1342,10 @@ function countTokens(text: string): number {
 
 function getCost(model: string, tokens: number, isInput: boolean): number {
   const pricing: Record<string, { input: number; output: number }> = {
-    'claude-3-opus-20240229': { input: 0.000015, output: 0.000075 },
-    'claude-3-sonnet-20240229': { input: 0.000003, output: 0.000015 },
+    'claude-opus-4-1-20250805': { input: 0.000015, output: 0.000075 },
+    'claude-sonnet-4-20250514': { input: 0.000003, output: 0.000015 },
     'claude-3-haiku-20240307': { input: 0.00000025, output: 0.00000125 },
-    'claude-2.1': { input: 0.000011025, output: 0.000032675 }
+    'claude-3-5-haiku-20241022': { input: 0.0000008, output: 0.000004 }
   };
   
   const rates = pricing[model];
@@ -1369,7 +1357,7 @@ function getCost(model: string, tokens: number, isInput: boolean): number {
 // Usage
 const inputTokens = 1000;
 const outputTokens = 500;
-const model = 'claude-3-sonnet-20240229';
+const model = 'claude-sonnet-4-20250514';
 
 const inputCost = getCost(model, inputTokens, true);
 const outputCost = getCost(model, outputTokens, false);

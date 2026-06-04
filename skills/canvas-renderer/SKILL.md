@@ -710,7 +710,7 @@ export class CanvasRenderEngine {
       }
     } else if (cmd.imageUrl) {
       // URL - fetch and cache
-      const cacheKey = createHash('md5').update(cmd.imageUrl).digest('hex');
+      const cacheKey = createHash('sha256').update(cmd.imageUrl).digest('hex');
       image = this.imageCache.get(cacheKey) || null;
       
       if (!image) {

@@ -925,6 +925,7 @@ export const DefaultAuthorizationConfig: AuthorizationConfig = {
 ```typescript
 // src/storage/authorization-storage.ts
 import { z } from 'zod';
+import { randomUUID } from 'crypto';
 import { RoleAssignmentSchema, ResourceACLSchema, PolicySchema } from '../types';
 import { Database } from 'bun:sqlite';
 
@@ -1056,7 +1057,7 @@ export class AuthorizationStorage {
       VALUES (?, ?, ?, ?, ?)
     `);
     stmt.run(
-      `audit_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
+      `audit_${randomUUID()}`,
       JSON.stringify(request),
       result ? 1 : 0,
       reason,

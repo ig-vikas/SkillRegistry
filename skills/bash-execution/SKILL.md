@@ -1,7 +1,7 @@
 ---
 name: bash-execution
 type: skill
-description: Secure shell command execution for AI agent gateway with sandbox isolation, input validation, and resource limits using @lydell/node-pty.
+description: Secure shell command execution for AI agent gateway with sandbox isolation, input validation, and resource limits using node-pty.
 version: 1.0.0
 author: skillregistry
 license: MIT
@@ -12,7 +12,7 @@ tags: [bash, shell, execution, sandbox, node-pty, security, tools]
 
 # Bash Execution Expert
 
-Implement secure shell command execution for AI agents with comprehensive sandboxing, input validation, and resource limitation using Node.js and @lydell/node-pty.
+Implement secure shell command execution for AI agents with comprehensive sandboxing, input validation, and resource limitation using Node.js and node-pty.
 
 ## Architecture
 
@@ -24,7 +24,7 @@ AI Agent Request -> Input Validation -> Approval Gate (if required) -> Sandbox E
 |-----------|---------|------------|
 | Input Validator | Validate commands, arguments | Zod, custom regex |
 | Approval Gate | Check security mode, request approval | Tool Approval System |
-| Sandbox Executor | Isolated command execution | @lydell/node-pty, Docker |
+| Sandbox Executor | Isolated command execution | node-pty, Docker |
 | Output Processor | Stream and chunk results | Node.js streams |
 | Resource Monitor | Track CPU, memory, time | Custom metrics |
 | Audit Logger | Log all executions | Winston, JSON |
@@ -32,14 +32,15 @@ AI Agent Request -> Input Validation -> Approval Gate (if required) -> Sandbox E
 ## Implementation
 
 ```bash
-pnpm add @lydell/node-pty @types/node-pty
+pnpm add node-pty
+pnpm add -D @types/node
 ```
 
 ### Secure Bash Service
 
 ```typescript
 // src/services/tools/bash-executor.ts
-import { spawn, IPty, SpawnOptions } from '@lydell/node-pty';
+import { spawn, IPty, SpawnOptions } from 'node-pty';
 import { promises as fs } from 'fs';
 import { join, resolve } from 'path';
 import { tmpdir } from 'os';
@@ -118,7 +119,9 @@ export class BashExecutor {
     // Check path
     if (!this.isPathAllowed(cwd)) return { success: false, error: `Path not allowed: ${cwd}` };
     
-    // Execute in shell with node-pty
+    // Execute in an interactive shell with node-pty.
+    // For non-interactive commands, prefer child_process.spawn(file, args, { shell: false })
+    // and never concatenate untrusted arguments into a shell string.
     return this.executeInShell(command, args, cwd, timeout, maxOutput);
   }
   

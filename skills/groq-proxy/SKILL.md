@@ -45,7 +45,7 @@ const response = await fetch('https://api.groq.com/v1/chat/completions', {
     'Authorization': `Bearer ${process.env.GROQ_KEY}`
   },
   body: JSON.stringify({
-    model: 'llama-3-8b-8192',
+    model: 'llama-3.3-70b-versatile',
     messages: [{ role: 'user', content: 'Hello!' }]
   })
 });
@@ -61,7 +61,7 @@ curl https://api.groq.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $GROQ_KEY" \
   -d '{
-    "model": "mixtral-8x7b-32768",
+    "model": "llama-3.1-8b-instant",
     "messages": [{"role": "user", "content": "Hello!"}]
   }'
 ```
@@ -72,20 +72,19 @@ curl https://api.groq.com/v1/chat/completions \
 
 | Model | Context Window | Speed | Use Case | Price (Input) | Price (Output) |
 |-------|----------------|-------|----------|---------------|----------------|
-| llama-3-8b-8192 | 8,192 | ⚡⚡⚡⚡⚡ | General, fast | $0.0000008/tok | $0.0000008/tok |
-| llama-3-70b-8192 | 8,192 | ⚡⚡⚡⚡ | More capable | $0.0000009/tok | $0.0000009/tok |
-| mixtral-8x7b-32768 | 32,768 | ⚡⚡⚡⚡⚡ | Large context | $0.0000007/tok | $0.0000007/tok |
+| llama-3.3-70b-versatile | Model-dependent | ⚡⚡⚡⚡ | General-purpose production chat | Check Groq pricing | Check Groq pricing |
+| llama-3.1-8b-instant | Model-dependent | ⚡⚡⚡⚡⚡ | Low-latency routine tasks | Check Groq pricing | Check Groq pricing |
+| openai/gpt-oss-120b | Model-dependent | ⚡⚡⚡ | Open-weight reasoning/chat where available | Check Groq pricing | Check Groq pricing |
 | gemma-7b-it | 8,192 | ⚡⚡⚡⚡⚡ | Lightweight | $0.0000001/tok | $0.0000001/tok |
 
 ### Model Families
 
 #### Llama 3 (Meta)
-- `llama-3-8b-8192` - Fast, general purpose
-- `llama-3-70b-8192` - More capable, still fast
+- `llama-3.3-70b-versatile` - General-purpose production default
+- `llama-3.1-8b-instant` - Lower-latency routine tasks
 
-#### Mixtral
-- `mixtral-8x7b-32768` - High context window
-- `mixtral-8x22b-123072` - Massive context (123K tokens)
+#### Current Groq
+- Use `/models` and Groq model pages for current context windows and pricing; do not hardcode retired Mixtral/Llama 3.0-era limits.
 
 #### Gemma (Google)
 - `gemma-7b-it` - Very cheap, fast
@@ -116,7 +115,7 @@ curl https://api.groq.com/v1/chat/completions \
 
 ```json
 {
-  "model": "llama-3-8b-8192",
+  "model": "llama-3.3-70b-versatile",
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello!"}
@@ -154,7 +153,7 @@ curl https://api.groq.com/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion",
   "created": 1717000000,
-  "model": "llama-3-8b-8192",
+  "model": "llama-3.3-70b-versatile",
   "choices": [
     {
       "index": 0,
@@ -180,7 +179,7 @@ curl https://api.groq.com/v1/chat/completions \
   "id": "chatcmpl-123",
   "object": "chat.completion.chunk",
   "created": 1717000000,
-  "model": "llama-3-8b-8192",
+  "model": "llama-3.3-70b-versatile",
   "choices": [
     {
       "index": 0,
@@ -211,7 +210,7 @@ Some models support reasoning tokens for better accuracy:
 
 ```json
 {
-  "model": "llama-3-70b-8192",
+  "model": "llama-3.3-70b-versatile",
   "messages": [...],
   "reasoning_tokens": 2048
 }
@@ -223,7 +222,7 @@ Force JSON output for structured responses:
 
 ```json
 {
-  "model": "llama-3-8b-8192",
+  "model": "llama-3.3-70b-versatile",
   "messages": [...],
   "response_format": { "type": "json_object" }
 }
@@ -231,11 +230,11 @@ Force JSON output for structured responses:
 
 ### 4. Large Context Windows
 
-Mixtral models support up to **123,072 tokens** of context:
+Current Groq models support up to **123,072 tokens** of context:
 
 ```json
 {
-  "model": "mixtral-8x22b-123072",
+  "model": "llama-3.3-70b-versatile",
   "messages": [...],
   "max_tokens": 1024
 }
@@ -285,10 +284,10 @@ app.listen(3000);
 
 ```typescript
 const MODEL_ALIASES: Record<string, string> = {
-  'llama3': 'llama-3-8b-8192',
-  'llama3-70b': 'llama-3-70b-8192',
-  'mixtral': 'mixtral-8x7b-32768',
-  'mixtral-large': 'mixtral-8x22b-123072',
+  'llama3': 'llama-3.3-70b-versatile',
+  'llama3-70b': 'llama-3.3-70b-versatile',
+  'fast': 'llama-3.1-8b-instant',
+  'balanced': 'llama-3.3-70b-versatile',
   'gemma': 'gemma-7b-it'
 };
 
@@ -361,9 +360,9 @@ app.post('/stream', async (req, res) => {
 // Latency-based load balancing
 const MODELS_BY_LATENCY = [
   'gemma-7b-it',      // ~50ms
-  'llama-3-8b-8192',  // ~80ms
-  'mixtral-8x7b-32768', // ~100ms
-  'llama-3-70b-8192'  // ~150ms
+  'llama-3.3-70b-versatile',  // ~80ms
+  'llama-3.1-8b-instant', // ~100ms
+  'llama-3.3-70b-versatile'  // ~150ms
 ];
 
 app.post('/fast/chat', async (req, res) => {
@@ -452,11 +451,11 @@ app.post('/fast/chat', async (req, res) => {
 function selectModelBySpeed(task: string): string {
   const modelMap: Record<string, string> = {
     'quick-answer': 'gemma-7b-it',
-    'general-chat': 'llama-3-8b-8192',
-    'complex-task': 'llama-3-70b-8192',
-    'long-context': 'mixtral-8x22b-123072'
+    'general-chat': 'llama-3.3-70b-versatile',
+    'complex-task': 'llama-3.3-70b-versatile',
+    'long-context': 'llama-3.3-70b-versatile'
   };
-  return modelMap[task] || 'llama-3-8b-8192';
+  return modelMap[task] || 'llama-3.3-70b-versatile';
 }
 ```
 
@@ -510,7 +509,7 @@ async function getStructuredData(prompt: string, schema: any) {
       'Authorization': `Bearer ${GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'llama-3-8b-8192',
+      model: 'llama-3.3-70b-versatile',
       messages: [
         {
           role: 'system',
@@ -553,7 +552,7 @@ const response = await fetch(`${GROQ_URL}/chat/completions`, {
 
 ```typescript
 async function processLongDocument(document: string, prompt: string) {
-  // Use Mixtral with 123K context for long documents
+  // Use Current Groq with 123K context for long documents
   const response = await fetch(`${GROQ_URL}/chat/completions`, {
     method: 'POST',
     headers: {
@@ -561,7 +560,7 @@ async function processLongDocument(document: string, prompt: string) {
       'Authorization': `Bearer ${GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'mixtral-8x22b-123072',
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: 'Analyze the following document.' },
         { role: 'user', content: document + '\n\n' + prompt }
@@ -684,7 +683,7 @@ describe('Groq Proxy', () => {
         id: 'chatcmpl-123',
         object: 'chat.completion',
         created: 1717000000,
-        model: 'llama-3-8b-8192',
+        model: 'llama-3.3-70b-versatile',
         choices: [{
           index: 0,
           message: { role: 'assistant', content: 'Hello!' },
@@ -701,7 +700,7 @@ describe('Groq Proxy', () => {
         'Authorization': 'Bearer test-key'
       },
       body: JSON.stringify({
-        model: 'llama-3-8b-8192',
+        model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: 'Hi' }]
       })
     });
@@ -726,7 +725,7 @@ describe('Groq Performance', () => {
         'Authorization': `Bearer ${GROQ_KEY}`
       },
       body: JSON.stringify({
-        model: 'llama-3-8b-8192',
+        model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: 'Quick answer: What is 2+2?' }],
         max_tokens: 10
       })
@@ -772,7 +771,7 @@ services:
       - "3000:3000"
     environment:
       - GROQ_KEY=${GROQ_KEY}
-      - PRIMARY_MODEL=llama-3-8b-8192
+      - PRIMARY_MODEL=llama-3.3-70b-versatile
     restart: unless-stopped
     deploy:
       resources:
@@ -788,7 +787,7 @@ services:
 GROQ_KEY=gsk_...
 
 # Optional
-PRIMARY_MODEL=llama-3-8b-8192
+PRIMARY_MODEL=llama-3.3-70b-versatile
 GROQ_URL=https://api.groq.com/v1
 PORT=3000
 LOG_LEVEL=info
@@ -980,7 +979,7 @@ global.fetch = async (url: string, options: any) => {
 ### 1. Basic Completion
 
 ```typescript
-async function complete(prompt: string, model: string = 'llama-3-8b-8192') {
+async function complete(prompt: string, model: string = 'llama-3.3-70b-versatile') {
   const response = await fetch('https://api.groq.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -1005,7 +1004,7 @@ class GroqConversation {
   private messages: any[] = [];
   private model: string;
   
-  constructor(model: string = 'llama-3-8b-8192') {
+  constructor(model: string = 'llama-3.3-70b-versatile') {
     this.model = model;
   }
   
@@ -1059,7 +1058,7 @@ async function getJSON(prompt: string, schema: any) {
       'Authorization': `Bearer ${process.env.GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'llama-3-8b-8192',
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: prompt }
@@ -1113,7 +1112,7 @@ async function* streamComplete(prompt: string, model: string) {
 }
 
 // Usage
-for await (const chunk of streamComplete('Tell me a story', 'llama-3-8b-8192')) {
+for await (const chunk of streamComplete('Tell me a story', 'llama-3.3-70b-versatile')) {
   process.stdout.write(chunk);
 }
 ```
@@ -1145,7 +1144,7 @@ async function parallelComplete(prompts: string[], model: string) {
 
 ```typescript
 async function processLongDocument(document: string, question: string) {
-  // Use Mixtral with 123K context
+  // Use Current Groq with 123K context
   const response = await fetch('https://api.groq.com/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -1153,7 +1152,7 @@ async function processLongDocument(document: string, question: string) {
       'Authorization': `Bearer ${process.env.GROQ_KEY}`
     },
     body: JSON.stringify({
-      model: 'mixtral-8x22b-123072',
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: 'Answer questions about the following document.' },
         { role: 'user', content: document + '\n\n' + question }
@@ -1189,9 +1188,8 @@ async function calculateCost(prompt: string, model: string) {
   
   // Groq pricing is the same for input and output
   const pricing: Record<string, number> = {
-    'llama-3-8b-8192': 0.0000008,
-    'llama-3-70b-8192': 0.0000009,
-    'mixtral-8x7b-32768': 0.0000007,
+    'llama-3.3-70b-versatile': 0.0000008,
+    'llama-3.1-8b-instant': 0.0000007,
     'gemma-7b-it': 0.0000001
   };
   

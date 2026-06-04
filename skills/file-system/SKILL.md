@@ -1241,7 +1241,7 @@ router.get('/hash', async (req, res) => {
   try {
     const { path, algorithm } = z.object({
       path: z.string().min(1),
-      algorithm: z.enum(['md5', 'sha1', 'sha256', 'sha512']).optional(),
+      algorithm: z.enum(['sha256', 'sha512']).optional(),
     }).parse(req.query);
     
     const gateway: AgentGateway = req.app.get('gateway');

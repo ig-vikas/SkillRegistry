@@ -40,14 +40,14 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 - **API Base**: `https://api.anthropic.com`
 - **Auth**: API Key in `x-api-key` header
 - **Message Format**: Messages array with `role` (user/assistant) and `content`
-- **Models**: claude-3-*, claude-2.1, claude-instant-1.2
+- **Models**: claude-sonnet-4-20250514, claude-opus-4-1-20250805, claude-3-5-haiku-20241022
 - **Streaming**: Server-Sent Events (SSE)
 
 ### 2. Google Gemini
 - **API Base**: `https://generativelanguage.googleapis.com/v1beta`
 - **Auth**: Bearer token or API key in URL
 - **Message Format**: `contents` array with `role` and `parts` (text)
-- **Models**: gemini-1.5-pro, gemini-1.5-flash, gemini-1.0-pro
+- **Models**: gemini-2.5-pro, gemini-2.5-flash, gemini-2.5-flash
 - **Streaming**: Streaming response with chunks
 
 ### 3. OpenRouter
@@ -61,21 +61,21 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 - **API Base**: `https://api.groq.com/v1`
 - **Auth**: API Key in `Authorization` header (Bearer)
 - **Message Format**: OpenAI-compatible messages array
-- **Models**: llama3-8b, llama3-70b, mixtral-8x7b, gemma-7b
+- **Models**: llama-3.3-70b-versatile, llama-3.1-8b-instant, provider-specific current model IDs
 - **Streaming**: SSE format
 
 ### 5. Mistral AI
 - **API Base**: `https://api.mistral.ai/v1`
 - **Auth**: API Key in `Authorization` header (Bearer)
 - **Message Format**: OpenAI-compatible messages array
-- **Models**: mistral-tiny, mistral-small, mistral-medium, mistral-large, mixtral-8x7b
+- **Models**: mistral-large-latest, mistral-small-latest, codestral-latest
 - **Streaming**: SSE format
 
 ### 6. DeepSeek
 - **API Base**: `https://api.deepseek.com/v1`
 - **Auth**: API Key in `Authorization` header (Bearer)
 - **Message Format**: OpenAI-compatible messages array
-- **Models**: deepseek-chat, deepseek-coder
+- **Models**: deepseek-v4-flash, deepseek-v4-pro; legacy aliases must be migrated before provider deprecation dates
 - **Streaming**: SSE format
 
 ### 7. NVIDIA NIM
@@ -119,7 +119,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 **OpenAI Input:**
 ```json
 {
-  "model": "gpt-4",
+  "model": "gpt-5.2",
   "messages": [
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Hello!"}
@@ -144,7 +144,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 **OpenAI Input:**
 ```json
 {
-  "model": "gpt-4",
+  "model": "gpt-5.2",
   "messages": [
     {"role": "user", "content": "What is 2+2?"}
   ]
@@ -154,7 +154,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 **Gemini Output:**
 ```json
 {
-  "model": "models/gemini-1.5-pro-latest",
+  "model": "models/gemini-2.5-pro",
   "contents": [
     {
       "role": "user",
@@ -174,7 +174,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 **Gemini Input:**
 ```json
 {
-  "model": "models/gemini-1.5-pro-latest",
+  "model": "models/gemini-2.5-pro",
   "contents": [
     {
       "role": "user",
@@ -189,7 +189,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 **OpenAI-Compatible Output:**
 ```json
 {
-  "model": "gemini-1.5-pro",
+  "model": "gemini-2.5-pro",
   "messages": [
     {"role": "user", "content": "Explain quantum computing"}
   ]
@@ -209,7 +209,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
   "content": [
     {"type": "text", "text": "I'm doing well, thank you!"}
   ],
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {"input_tokens": 25, "output_tokens": 10}
@@ -222,7 +222,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
   "id": "chatcmpl-123",
   "object": "chat.completion",
   "created": 1717000000,
-  "model": "claude-3-sonnet-20240229",
+  "model": "claude-sonnet-4-20250514",
   "choices": [
     {
       "index": 0,
@@ -249,7 +249,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
   "id": "chatcmpl-123",
   "object": "chat.completion",
   "created": 1717000000,
-  "model": "gpt-4-0613",
+  "model": "gpt-5.2",
   "choices": [
     {
       "index": 0,
@@ -277,7 +277,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
   "content": [
     {"type": "text", "text": "The answer is 42."}
   ],
-  "model": "gpt-4-0613",
+  "model": "gpt-5.2",
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "usage": {"input_tokens": 25, "output_tokens": 10}
@@ -289,7 +289,7 @@ Convert requests and responses between different AI provider APIs seamlessly. Un
 ### Anthropic Features
 - **Tools**: Native function calling with `tools` parameter
 - **Beta Features**: `web_search`, `image_understanding`
-- **HDR**: High Definition Reasoning for complex tasks
+- **Extended thinking**: budgeted reasoning controls where supported
 
 ### Gemini Features
 - **Multi-modal**: Text, images, audio, video
@@ -676,9 +676,9 @@ function claudeToMistral(request: ClaudeRequest): MistralRequest {
 
 function mapClaudeToMistralModel(claudeModel: string): string {
   const mapping = {
-    'claude-3-sonnet-20240229': 'mistral-large',
+    'claude-sonnet-4-20250514': 'mistral-large',
     'claude-3-haiku-20240307': 'mistral-medium',
-    'claude-2.1': 'mistral-small'
+    'claude-3-5-haiku-20241022': 'mistral-small'
   };
   return mapping[claudeModel] || 'mistral-tiny';
 }
@@ -700,9 +700,9 @@ function geminiToGroq(request: GeminiRequest): GroqRequest {
 
 function mapGeminiToGroqModel(geminiModel: string): string {
   const mapping = {
-    'gemini-1.5-pro': 'mixtral-8x7b-32768',
-    'gemini-1.5-flash': 'llama3-8b-8192',
-    'gemini-1.0-pro': 'llama3-70b-8192'
+    'gemini-2.5-pro': 'llama-3.3-70b-versatile',
+    'gemini-2.5-flash': 'llama3-8b-8192',
+    'gemini-2.5-flash': 'llama3-70b-8192'
   };
   return mapping[geminiModel] || 'llama3-8b-8192';
 }
@@ -1083,7 +1083,7 @@ const API_KEYS = {
 // Provider endpoints
 const PROVIDER_ENDPOINTS = {
   anthropic: 'https://api.anthropic.com/v1/messages',
-  gemini: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent',
+  gemini: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent',
   openrouter: 'https://openrouter.ai/api/v1/chat/completions',
   groq: 'https://api.groq.com/v1/chat/completions',
   mistral: 'https://api.mistral.ai/v1/chat/completions',
@@ -1144,7 +1144,7 @@ function convertFromProvider(provider: string, response: any) {
         id: `chatcmpl-${Date.now()}`,
         object: 'chat.completion',
         created: Math.floor(Date.now() / 1000),
-        model: response.model || 'gemini-1.5-pro',
+        model: response.model || 'gemini-2.5-pro',
         choices: [{
           index: 0,
           message: {
