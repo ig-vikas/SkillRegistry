@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-05-30T19:24:40.617Z",
+  "updated_at": "2026-06-04T15:23:37.547Z",
   "skills": {
     "a11y-audit": {
       "name": "a11y-audit",
@@ -20,6 +20,28 @@
       "downloads": 0,
       "checksum": "da0284706b1173e0de47c29d9e9dc98a2cb5505efa626ee41166b4a66b58c223"
     },
+    "anthropic-proxy": {
+      "name": "anthropic-proxy",
+      "version": "1.0.0",
+      "description": "Anthropic Claude API expert - master requests, responses, streaming, and best practices for Claude 3 and Claude 2 models.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "7962a2d6013b851728b19202309422c9441dac60babe530c934fdbee4454976d"
+    },
     "api-design": {
       "name": "api-design",
       "version": "1.0.0",
@@ -38,6 +60,48 @@
       "downloads": 0,
       "checksum": "478efecf201d18e3b8632984b93facdf4237fa032e353cb2e974d947755fedb7"
     },
+    "api-proxy-converter": {
+      "name": "api-proxy-converter",
+      "version": "1.0.0",
+      "description": "Expert in converting between AI provider APIs - Anthropic, Gemini, OpenRouter, Groq, Mistral, DeepSeek, and NVIDIA NIM.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "01280332f6a1c319c670db3441d799fa93c70ed90b631f9b740ffbd2fb7d39c9"
+    },
+    "authorization": {
+      "name": "authorization",
+      "version": "1.0.0",
+      "description": "Role-based access control (RBAC) and permission system for AI agent gateway with fine-grained resource authorization and policy enforcement.",
+      "author": "skillregistry",
+      "categories": [
+        "security",
+        "backend",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli"
+      ],
+      "security_score": 40,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "ed0458cd2ac5eadc49447f6c6446e1d0e1d12885bf86be4cbe914392949d9f5e"
+    },
     "ci-cd-patterns": {
       "name": "ci-cd-patterns",
       "version": "1.0.0",
@@ -53,6 +117,28 @@
       "verified": true,
       "downloads": 0,
       "checksum": "83b37a60b47816d123ac64f7c37036ee1289b7de30ac33e6992afb672d3a4f9f"
+    },
+    "deepseek-proxy": {
+      "name": "deepseek-proxy",
+      "version": "1.0.0",
+      "description": "DeepSeek API expert - specialized AI models for coding, reasoning, and chat with competitive pricing.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "f0e479ca95155dc7854448d0d89b713b977d64fa657c23d98f0935d13fbff4fa"
     },
     "docker-expert": {
       "name": "docker-expert",
@@ -71,6 +157,28 @@
       "verified": true,
       "downloads": 0,
       "checksum": "699978c7ae6026109986edd9c90675f073f4371c3ea42b12e7ec9f831ef1b4d2"
+    },
+    "gemini-proxy": {
+      "name": "gemini-proxy",
+      "version": "1.0.0",
+      "description": "Google Gemini API expert - master requests, responses, multi-modal capabilities, and best practices for all Gemini models.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "f15258f4a40af8da628cb0c789cc34edf7722f949d6de6e30643613e0e40699f"
     },
     "github-actions": {
       "name": "github-actions",
@@ -104,6 +212,29 @@
       "verified": true,
       "downloads": 0,
       "checksum": "12dc99affaf29f8fb6633c8ee2c87e4ee81ce00174bea4ec481006f26a913853"
+    },
+    "groq-proxy": {
+      "name": "groq-proxy",
+      "version": "1.0.0",
+      "description": "Groq API expert - ultra-low latency LLM inference with optimized models for speed and cost efficiency.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture",
+        "performance"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "fb6e796dfcd2756cb55d298fb728fc0c8f22a39431ba98e71c4bccb2ac3841d0"
     },
     "input-validation": {
       "name": "input-validation",
@@ -157,6 +288,28 @@
       "downloads": 0,
       "checksum": "1b0f321fa548d3f9c319f24d23ce1cff20f62af52eed2cb6cf1607529f67bb5f"
     },
+    "mistral-proxy": {
+      "name": "mistral-proxy",
+      "version": "1.0.0",
+      "description": "Mistral AI API expert - access cutting-edge open-source models with European data residency and enterprise features.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "92ed7da539b98ef0eb40139489e81f8d72b198b89bcc80f1f3cad6b4d3423ff1"
+    },
     "nextjs-expert": {
       "name": "nextjs-expert",
       "version": "1.0.0",
@@ -173,6 +326,51 @@
       "verified": true,
       "downloads": 0,
       "checksum": "7077b48ccff972139233bd17ac928940a812a84c9172e278c943a3e64bc64e6c"
+    },
+    "nvidia-nim-proxy": {
+      "name": "nvidia-nim-proxy",
+      "version": "1.0.0",
+      "description": "NVIDIA NIM expert - master NVIDIA NIM deployment, GPU-accelerated inference, custom model serving, and MCP integration for enterprise AI workloads.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture",
+        "devops"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "d02fcc5ac96eb73231f61ccfb143d68f0041166d47c4cb0a911dd0f7df68c459"
+    },
+    "openrouter-proxy": {
+      "name": "openrouter-proxy",
+      "version": "1.0.0",
+      "description": "OpenRouter API expert - access 200+ models with unified API, routing, and advanced features like model ranking and custom endpoints.",
+      "author": "skillregistry",
+      "categories": [
+        "backend",
+        "ai-ml",
+        "architecture"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli",
+        "codex"
+      ],
+      "security_score": 0,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "ae81fa57856eddb2dd5d0cb8350849d7fca0cba3f610345ee096d455edba1c03"
     },
     "owasp-security": {
       "name": "owasp-security",
@@ -191,6 +389,28 @@
       "verified": true,
       "downloads": 0,
       "checksum": "85da56c771bf36e9cbef76a33d043ca51912d0eb23fa8cd3e6b6b09e55990839"
+    },
+    "pnpm-expert": {
+      "name": "pnpm-expert",
+      "version": "1.0.0",
+      "description": "Advanced pnpm workspace management, dependency resolution strategies, and performance optimization for monorepos.",
+      "author": "skillregistry",
+      "categories": [
+        "devops",
+        "code-quality"
+      ],
+      "agents": [
+        "claude-code",
+        "cursor",
+        "codex",
+        "copilot",
+        "gemini-cli",
+        "windsurf"
+      ],
+      "security_score": 100,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "db8ca617c1bcb174af44e33048158174e55887ed97c8c8125c5a9a06c52ca1f8"
     },
     "postgres-expert": {
       "name": "postgres-expert",
@@ -330,6 +550,27 @@
       "verified": true,
       "downloads": 0,
       "checksum": "877b0d498e10174a4418dfd3e9b77f66311c316551b60e23d0cabe639195ea5b"
+    },
+    "tool-approval": {
+      "name": "tool-approval",
+      "version": "1.0.0",
+      "description": "Approval system for dangerous tools with configurable modes (always-require-approval, owner-only, yolo) and sandbox execution.",
+      "author": "skillregistry",
+      "categories": [
+        "security",
+        "backend",
+        "ai-ml"
+      ],
+      "agents": [
+        "cursor",
+        "claude-code",
+        "copilot",
+        "gemini-cli"
+      ],
+      "security_score": 70,
+      "verified": true,
+      "downloads": 0,
+      "checksum": "05616c3a31c2aac3dd4f7d0481ab924c28e9d574da1688a1b198ec2e1ff89c25"
     },
     "vue-master": {
       "name": "vue-master",
