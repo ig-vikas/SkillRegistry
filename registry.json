@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "updated_at": "2026-06-04T15:23:37.547Z",
+  "updated_at": "2026-06-04T16:08:55.465Z",
   "skills": {
     "a11y-audit": {
       "name": "a11y-audit",
       "version": "1.0.0",
-      "description": "WCAG 2.1 accessibility audits and remediation guidance.",
+      "description": "WCAG 2.2 accessibility audit and remediation guidance for frontend code, UI reviews, keyboard/focus testing, ARIA usage, contrast, forms, and regression checks.",
       "author": "skillregistry",
       "categories": [
         "accessibility",
@@ -18,12 +18,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "da0284706b1173e0de47c29d9e9dc98a2cb5505efa626ee41166b4a66b58c223"
+      "checksum": "543ce246760b9f6c29730a3786987da1055639eb4bb7e416c3bf659b66e7d35c"
     },
     "anthropic-proxy": {
       "name": "anthropic-proxy",
       "version": "1.0.0",
-      "description": "Anthropic Claude API expert - master requests, responses, streaming, and best practices for Claude 3 and Claude 2 models.",
+      "description": "Anthropic Claude API expert - master Messages API requests, responses, streaming, tool use, prompt caching, and current Claude 4-family model practices.",
       "author": "skillregistry",
       "categories": [
         "backend",
@@ -40,12 +40,12 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "7962a2d6013b851728b19202309422c9441dac60babe530c934fdbee4454976d"
+      "checksum": "a42dfbed14746471867aef48816fff52c6f5047b0a5ded832dcda8be48f6782d"
     },
     "api-design": {
       "name": "api-design",
       "version": "1.0.0",
-      "description": "REST API design, versioning, and OpenAPI documentation.",
+      "description": "REST and HTTP API design with OpenAPI 3.1, resource modeling, versioning, pagination, idempotency, errors, validation, auth boundaries, and production compatibility.",
       "author": "skillregistry",
       "categories": [
         "backend",
@@ -55,10 +55,10 @@
         "cursor",
         "codex"
       ],
-      "security_score": 100,
+      "security_score": 85,
       "verified": true,
       "downloads": 0,
-      "checksum": "478efecf201d18e3b8632984b93facdf4237fa032e353cb2e974d947755fedb7"
+      "checksum": "dcd31e5bf39b1cb959ab691f6bccfecfb94766595ba2dd1b35a8049a2bf93cdd"
     },
     "api-proxy-converter": {
       "name": "api-proxy-converter",
@@ -79,7 +79,7 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "01280332f6a1c319c670db3441d799fa93c70ed90b631f9b740ffbd2fb7d39c9"
+      "checksum": "353fb384380e1b43cd178b457ad6dd61846323f8e0a67d2a4ebf930d3aa03a7e"
     },
     "authorization": {
       "name": "authorization",
@@ -100,12 +100,12 @@
       "security_score": 40,
       "verified": true,
       "downloads": 0,
-      "checksum": "ed0458cd2ac5eadc49447f6c6446e1d0e1d12885bf86be4cbe914392949d9f5e"
+      "checksum": "a843c1fef10e0da005a54f916a31aeb875955cacdb35895284423ad7d6f9e664"
     },
     "ci-cd-patterns": {
       "name": "ci-cd-patterns",
       "version": "1.0.0",
-      "description": "CI/CD pipeline patterns for reliable deployments.",
+      "description": "CI/CD pipeline patterns for reliable builds, tests, artifacts, deployments, environment promotion, supply-chain security, and rollback-safe delivery.",
       "author": "skillregistry",
       "categories": [
         "devops"
@@ -116,7 +116,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "83b37a60b47816d123ac64f7c37036ee1289b7de30ac33e6992afb672d3a4f9f"
+      "checksum": "afda48d159a97d13aa8f18eeda64e3ce28501a923fdb4beaa783eee980f382e9"
     },
     "deepseek-proxy": {
       "name": "deepseek-proxy",
@@ -138,12 +138,12 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "f0e479ca95155dc7854448d0d89b713b977d64fa657c23d98f0935d13fbff4fa"
+      "checksum": "f8fc66fc4f573065639af77eed662f6957a1f417c724494967dd5b09e0a95e0f"
     },
     "docker-expert": {
       "name": "docker-expert",
       "version": "1.0.0",
-      "description": "Dockerfile best practices and multi-stage builds.",
+      "description": "Docker and containerization best practices for Node/TypeScript services, multi-stage builds, BuildKit cache/secrets, non-root runtime images, health checks, and image hardening.",
       "author": "skillregistry",
       "categories": [
         "devops",
@@ -153,15 +153,15 @@
         "cursor",
         "codex"
       ],
-      "security_score": 100,
+      "security_score": 62,
       "verified": true,
       "downloads": 0,
-      "checksum": "699978c7ae6026109986edd9c90675f073f4371c3ea42b12e7ec9f831ef1b4d2"
+      "checksum": "d06796b57c7ef3d8760b1763e7e4df649b614ccafeb879a82eb8bda9061c49f6"
     },
     "gemini-proxy": {
       "name": "gemini-proxy",
       "version": "1.0.0",
-      "description": "Google Gemini API expert - master requests, responses, multi-modal capabilities, and best practices for all Gemini models.",
+      "description": "Production guide for proxying Google Gemini API requests with the current Google GenAI SDK, multimodal content, streaming, safety settings, and gateway integration.",
       "author": "skillregistry",
       "categories": [
         "backend",
@@ -175,15 +175,15 @@
         "gemini-cli",
         "codex"
       ],
-      "security_score": 0,
+      "security_score": 40,
       "verified": true,
       "downloads": 0,
-      "checksum": "f15258f4a40af8da628cb0c789cc34edf7722f949d6de6e30643613e0e40699f"
+      "checksum": "61a7db7da4616d3d468210d25d4162a347b1be44729611ed35be85cc733e1533"
     },
     "github-actions": {
       "name": "github-actions",
       "version": "1.0.0",
-      "description": "GitHub Actions CI/CD workflows and reusable actions.",
+      "description": "GitHub Actions workflow design, secure permissions, pnpm/Node CI, caching, matrix builds, OIDC deploys, artifacts, reusable workflows, and action hardening.",
       "author": "skillregistry",
       "categories": [
         "devops"
@@ -195,12 +195,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "4f1f25a766febffe74e64c77d047b5a980a7bfb7b1e41b033584fffad18776f5"
+      "checksum": "a945ca1d79857436a9a9d5f042e4f64688e51fd07850215fd51a8d79d934b8a8"
     },
     "graphql-expert": {
       "name": "graphql-expert",
       "version": "1.0.0",
-      "description": "GraphQL schema design, resolvers, and N+1 prevention.",
+      "description": "GraphQL schema, resolver, authorization, DataLoader, pagination, query cost/depth limiting, error masking, and production server guidance.",
       "author": "skillregistry",
       "categories": [
         "backend"
@@ -211,7 +211,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "12dc99affaf29f8fb6633c8ee2c87e4ee81ce00174bea4ec481006f26a913853"
+      "checksum": "67a8e7e768276e8e5ff5b19cc4b9ca81c22b60ef0662064edebc1b86a58c9282"
     },
     "groq-proxy": {
       "name": "groq-proxy",
@@ -234,12 +234,12 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "fb6e796dfcd2756cb55d298fb728fc0c8f22a39431ba98e71c4bccb2ac3841d0"
+      "checksum": "06613824e691827443a4f413192421c80f124d673e40bbdcbc7c8fa9401b2c01"
     },
     "input-validation": {
       "name": "input-validation",
       "version": "1.0.0",
-      "description": "Input validation with Zod and sanitization strategies.",
+      "description": "Secure input validation with Zod 4, allowlists, canonicalization, semantic validation, file upload checks, API boundary parsing, and safe error reporting.",
       "author": "skillregistry",
       "categories": [
         "security",
@@ -252,12 +252,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "a3e2225173f29d306ab0132b39b59efb20edae773713ceef7cd7e61868d07738"
+      "checksum": "9d3b2894cb8028aaa81a4932560946b11f9ed4b02945ac62e76712545200a331"
     },
     "jwt-hardening": {
       "name": "jwt-hardening",
       "version": "1.0.0",
-      "description": "JWT authentication hardening and token lifecycle management.",
+      "description": "JWT hardening for authentication systems, including RFC 8725 best practices, jose verification, algorithm allowlists, claims validation, token confusion prevention, revocation, and secure storage.",
       "author": "skillregistry",
       "categories": [
         "security",
@@ -269,12 +269,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "89e328ee01df4b8f91ce0004de7b410532b15a280f206bf42ed7d1ef21089835"
+      "checksum": "8a7b40d4ee619914c5f77092fd86718f5ee03f064fba6b8540452907d3d65287"
     },
     "mcp-builder": {
       "name": "mcp-builder",
       "version": "1.0.0",
-      "description": "Build MCP servers with the Model Context Protocol SDK.",
+      "description": "Build Model Context Protocol servers and clients with the TypeScript SDK, tools, resources, prompts, stdio and Streamable HTTP transports, Zod schemas, auth, and security review.",
       "author": "skillregistry",
       "categories": [
         "ai-ml"
@@ -286,7 +286,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "1b0f321fa548d3f9c319f24d23ce1cff20f62af52eed2cb6cf1607529f67bb5f"
+      "checksum": "c68e49399b27fc0b3b6f1624549cf58a4d0dee68b80bbe39723eeab500e256bd"
     },
     "mistral-proxy": {
       "name": "mistral-proxy",
@@ -308,12 +308,12 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "92ed7da539b98ef0eb40139489e81f8d72b198b89bcc80f1f3cad6b4d3423ff1"
+      "checksum": "04bdc4eb6fa5d383b6626fd2bf9a1b6d7c01d17be3a19b97ed71649304136721"
     },
     "nextjs-expert": {
       "name": "nextjs-expert",
       "version": "1.0.0",
-      "description": "Next.js App Router, RSC, and deployment best practices.",
+      "description": "Next.js App Router development with React Server Components, Server Actions, route handlers, caching, streaming, metadata, security, testing, and deployment guidance.",
       "author": "skillregistry",
       "categories": [
         "frontend"
@@ -325,7 +325,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "7077b48ccff972139233bd17ac928940a812a84c9172e278c943a3e64bc64e6c"
+      "checksum": "a5e854214d318f85cd6880e618e937193a48f4190d3b80a1912d680d7f0d207e"
     },
     "nvidia-nim-proxy": {
       "name": "nvidia-nim-proxy",
@@ -348,12 +348,12 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "d02fcc5ac96eb73231f61ccfb143d68f0041166d47c4cb0a911dd0f7df68c459"
+      "checksum": "82400aea8c0ef4b4ef9e91e802428213cbb4ccecab864fc57800a7f476f484d9"
     },
     "openrouter-proxy": {
       "name": "openrouter-proxy",
       "version": "1.0.0",
-      "description": "OpenRouter API expert - access 200+ models with unified API, routing, and advanced features like model ranking and custom endpoints.",
+      "description": "OpenRouter API expert - access 400+ models with a unified API, dynamic model discovery, provider routing, fallbacks, and app attribution headers.",
       "author": "skillregistry",
       "categories": [
         "backend",
@@ -370,25 +370,7 @@
       "security_score": 0,
       "verified": true,
       "downloads": 0,
-      "checksum": "ae81fa57856eddb2dd5d0cb8350849d7fca0cba3f610345ee096d455edba1c03"
-    },
-    "owasp-security": {
-      "name": "owasp-security",
-      "version": "1.0.0",
-      "description": "OWASP Top 10 vulnerabilities and secure coding practices.",
-      "author": "skillregistry",
-      "categories": [
-        "security"
-      ],
-      "agents": [
-        "cursor",
-        "claude-code",
-        "copilot"
-      ],
-      "security_score": 100,
-      "verified": true,
-      "downloads": 0,
-      "checksum": "85da56c771bf36e9cbef76a33d043ca51912d0eb23fa8cd3e6b6b09e55990839"
+      "checksum": "c9e62646ac5ece261b43f54e628319d97d0592f07e63e3b46cdd0da5ff53ea1d"
     },
     "pnpm-expert": {
       "name": "pnpm-expert",
@@ -410,12 +392,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "db8ca617c1bcb174af44e33048158174e55887ed97c8c8125c5a9a06c52ca1f8"
+      "checksum": "414b621411c054f4ae9597f2d8dbdbfdb6acdb515a7f7ff1ebabaee9634ddd56"
     },
     "postgres-expert": {
       "name": "postgres-expert",
       "version": "1.0.0",
-      "description": "PostgreSQL query optimization, indexing, and schema design.",
+      "description": "PostgreSQL schema design, query optimization, indexing, migrations, transactions, EXPLAIN analysis, JSONB, full-text search, and operational safety.",
       "author": "skillregistry",
       "categories": [
         "database",
@@ -428,12 +410,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "85a9bc1252b55108d87bce2b8cbb84fb14ce186f128c7cd67bdd44eb326d1f2f"
+      "checksum": "64035fad2d9d98155385c6f4d3ea4af8f851454714bd658959c351e292de1efe"
     },
     "prompt-engineer": {
       "name": "prompt-engineer",
       "version": "1.0.0",
-      "description": "Prompt engineering techniques for reliable LLM outputs.",
+      "description": "Prompt engineering for reliable LLM outputs, including task framing, context selection, structured outputs, tool-use prompts, eval-driven iteration, prompt caching, and safe rationale handling.",
       "author": "skillregistry",
       "categories": [
         "ai-ml"
@@ -446,12 +428,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "d1b794907ac9efa6c8bf1784eb0142a9440565a917cd68f74928165174696151"
+      "checksum": "98885bac0e4367d81b0a7465fb83b5375dbb40b56bb4c8c5cce79957b26c94d7"
     },
     "rag-patterns": {
       "name": "rag-patterns",
       "version": "1.0.0",
-      "description": "RAG architecture, chunking, and retrieval optimization.",
+      "description": "Retrieval-augmented generation architecture with ingestion, chunking, embeddings, hybrid retrieval, reranking, citations, freshness, evaluation, and hallucination controls.",
       "author": "skillregistry",
       "categories": [
         "ai-ml",
@@ -463,12 +445,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "6a4154d9272fc6325881ff195813502bfe94ad24de753bbcf3dc1f541b9855a7"
+      "checksum": "7f55510bbe2b8c3a7dfc7ad161fa5c07249137e774c559c6fba16f9cc48fa71f"
     },
     "react-expert": {
       "name": "react-expert",
       "version": "1.0.0",
-      "description": "Expert React patterns, hooks, and performance optimization.",
+      "description": "React application development with components, hooks, state design, effects, accessibility, performance, React Compiler awareness, testing, and production debugging.",
       "author": "skillregistry",
       "categories": [
         "frontend"
@@ -480,12 +462,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "d9d455c0496e3d1304cd9d740f992f94407ad4e198c773c0a3ea280c3db5c521"
+      "checksum": "c4da6c8fbd25228d0e13b9863192e4f3eb552041eec4fdc15a72d8bb8b9268c7"
     },
     "redis-patterns": {
       "name": "redis-patterns",
       "version": "1.0.0",
-      "description": "Redis caching, pub/sub, and data structure patterns.",
+      "description": "Redis caching, TTLs, key design, distributed locks, streams, pub/sub, rate limiting, invalidation, observability, and production reliability patterns.",
       "author": "skillregistry",
       "categories": [
         "database",
@@ -497,12 +479,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "12785e0b1b86b3a371bbd16569860a0f884b65b65e0323a3e234ba9827b2f431"
+      "checksum": "53e0fd5f1dd9dbe47ff61f8c211f498fb884cba8a921732b7dcd76083d0e0a7f"
     },
     "refactor-expert": {
       "name": "refactor-expert",
       "version": "1.0.0",
-      "description": "Safe refactoring patterns and code smell remediation.",
+      "description": "Safe behavior-preserving refactoring guidance for code cleanup, decomposition, dependency boundaries, test-backed migrations, and code smell remediation.",
       "author": "skillregistry",
       "categories": [
         "code-quality"
@@ -514,12 +496,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "924cde5ba04e1a5bf7ed2522a6db8211b9f4f0256ec0bf3461884d9d9236431d"
+      "checksum": "8c6ec6e8a60a9e0ae8125db09455af1324741d5cc8077ad38f68c284dca6f173"
     },
     "tailwind-pro": {
       "name": "tailwind-pro",
       "version": "1.0.0",
-      "description": "Tailwind CSS utility patterns and design system setup.",
+      "description": "Tailwind CSS v4 utility and design-system guidance, theme variables, responsive layouts, class composition, accessibility, component variants, and migration-aware styling.",
       "author": "skillregistry",
       "categories": [
         "frontend"
@@ -531,12 +513,12 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "60b29629348eb88b65ed9be5ba1f57ee66496d80518361a5c8204a220148f743"
+      "checksum": "55ae01a5ef7fe8ec33864ac87e01b101b09d1e524e8e49b20a28c32978b9c2aa"
     },
     "test-driven": {
       "name": "test-driven",
       "version": "1.0.0",
-      "description": "Test-driven development with Vitest and Testing Library.",
+      "description": "Test-driven and test-first development with Vitest, Testing Library, behavior-focused tests, fixtures, regression tests, mocks at boundaries, and red-green-refactor workflow.",
       "author": "skillregistry",
       "categories": [
         "testing",
@@ -549,7 +531,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "877b0d498e10174a4418dfd3e9b77f66311c316551b60e23d0cabe639195ea5b"
+      "checksum": "1936039e8089b2eac3b3fb7f94d864d045dc2d6b92cb6e669bbad3991e85d811"
     },
     "tool-approval": {
       "name": "tool-approval",
@@ -570,12 +552,12 @@
       "security_score": 70,
       "verified": true,
       "downloads": 0,
-      "checksum": "05616c3a31c2aac3dd4f7d0481ab924c28e9d574da1688a1b198ec2e1ff89c25"
+      "checksum": "3a7fa92e6b6006e4e824c842c027fd957f1b36563d7e04d310d1e83132550740"
     },
     "vue-master": {
       "name": "vue-master",
       "version": "1.0.0",
-      "description": "Vue 3 Composition API, Pinia, and component design.",
+      "description": "Vue 3 application development with Composition API, script setup, TypeScript props/emits, Pinia, reactivity, component design, testing, and performance patterns.",
       "author": "skillregistry",
       "categories": [
         "frontend"
@@ -587,7 +569,7 @@
       "security_score": 100,
       "verified": true,
       "downloads": 0,
-      "checksum": "483c46d98531ea9627b335a9c2948c17931b65168ef7ade825308851103948e6"
+      "checksum": "b29f5c584869ecaa3f8fdd222c6b4a98f63ac21d269dd184aefcad9c9a5cbf19"
     }
   }
 }
