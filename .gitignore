@@ -10,3 +10,11 @@ dist
 coverage
 *.log
 .DS_Store
+
+# Custom
+README(1).md
+
+
+AGENTS.md
+
+GEMINI.md
